@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية الإبداع - المنصة التعليمية الذكية</title>
+    
+    <!-- خط Tajawal & Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+            --accent-cyan: #0284c7;
+            --accent-purple: #7c3aed;
+            --accent-pink: #db2777;
+            --bg-main: #f0f5ff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(99, 102, 241, 0.18);
+            --glow-color: rgba(2, 132, 199, 0.2);
+            --eye-filter: opacity(1);
+        }
+
+        body.dark-mode {
+            --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --bg-main: #0b0f19;        
+            --card-bg: rgba(17, 24, 39, 0.8);         
+            --text-main: #f8fafc;       
+            --text-muted: #94a3b8;      
+            --header-bg: rgba(15, 23, 42, 0.9);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --glow-color: rgba(59, 130, 246, 0.35);
+        }
+
+        body.eye-mode {
+            --eye-filter: sepia(0.35) hue-rotate(-15deg) contrast(0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            filter: var(--eye-filter);
+            background-image: 
+                radial-gradient(circle at 10% 10%, var(--glow-color) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--glow-color) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .glass-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+        }
+
+        #toastContainer {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            background: var(--card-bg);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-right: 5px solid var(--accent-cyan);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(12px);
+            animation: slideInLeft 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        #announcementBar {
+            display: block;
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .login-card {
+            padding: 2.5rem;
+            border-radius: 28px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .tabs-header {
+            display: flex;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            gap: 8px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: none;
+            border: none;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .tab-btn.active {
+            color: var(--text-main);
+            background: rgba(2, 132, 199, 0.15);
+            border-bottom: 3px solid var(--accent-cyan);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .login-input, .login-select {
+            width: 100%;
+            padding: 0.95rem 1.2rem;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-main);
+            border-radius: 14px;
+            margin-bottom: 1.1rem;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        body.dark-mode .login-input, body.dark-mode .login-select {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .login-input:focus, .login-select:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-main-login {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 14px;
+            cursor: pointer;
+            margin-bottom: 0.9rem;
+            box-shadow: 0 8px 20px var(--glow-color);
+            transform: translateY(0);
+        }
+
+        .btn-main-login:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-guest {
+            width: 100%;
+            background: rgba(148, 163, 184, 0.15);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+        }
+
+        .btn-guest:hover {
+            background: rgba(148, 163, 184, 0.25);
+        }
+
+        #mainPlatform {
+            display: none;
+        }
+
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            color: var(--text-main);
+            padding: 1rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, #0284c7, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .mode-badge-btn {
+            background: rgba(2, 132, 199, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.45rem 0.95rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mode-badge-btn:hover {
+            background: rgba(2, 132, 199, 0.18);
+            border-color: var(--accent-cyan);
+        }
+
+        .user-badge {
+            background-color: rgba(2, 132, 199, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-admin-nav {
+            background: linear-gradient(90deg, #f43f5e, #ec4899);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
+        }
+
+        .nav-tabs-platform {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.4);
+            flex-wrap: wrap;
+        }
+
+        body.dark-mode .nav-tabs-platform {
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .platform-tab-btn {
+            padding: 0.75rem 2.2rem;
+            border-radius: 50px;
+            border: 2px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-main);
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .platform-tab-btn.active, .platform-tab-btn:hover {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 6px 20px var(--glow-color);
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 2.5rem 1.2rem;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-item {
+            border-radius: 24px;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .card-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            opacity: 0.8;
+        }
+
+        .card-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 1.2rem;
+            background: #1e293b;
+        }
+
+        .card-item h3 {
+            color: var(--text-main);
+            margin-bottom: 0.6rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .card-item p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .btn-card {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.85rem;
+            border-radius: 14px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-top: 0.6rem;
+            box-shadow: 0 6px 18px var(--glow-color);
+            font-size: 0.95rem;
+        }
+
+        .btn-card:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+
+        #adminPage {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .admin-header-bar {
+            background: var(--header-bg);
+            color: var(--text-main);
+            padding: 1.2rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-admin-action-top {
+            padding: 0.55rem 1.3rem;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .admin-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
+        }
+
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            padding: 1.6rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #0284c7, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .admin-card {
+            padding: 2rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-card h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
+            font-weight: 800;
+        }
+
+        .admin-input, .admin-select, .admin-textarea {
+            width: 100%;
+            padding: 0.95rem 1.1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            margin-bottom: 1.1rem;
+            font-size: 0.95rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-main);
+        }
+
+        body.dark-mode .admin-input, body.dark-mode .admin-select, body.dark-mode .admin-textarea {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .students-table th, .students-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: right;
+            color: var(--text-main);
+        }
+
+        .students-table th {
+            background: rgba(2, 132, 199, 0.12);
+            color: var(--accent-cyan);
+            font-weight: 800;
+        }
+
+        #examSessionPage {
+            display: none;
+            min-height: 100vh;
+            padding: 3rem 5%;
+        }
+
+        .exam-session-box {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 28px;
+            border: 1px solid var(--border-color);
+        }
+
+        .exam-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.2rem;
+        }
+
+        .timer-badge {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .exam-option-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+            padding: 1.1rem 1.3rem;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        body.dark-mode .exam-option-btn {
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .exam-option-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .option-letter {
+            font-weight: 900;
+            color: var(--accent-cyan);
+            width: 30px;
+            height: 30px;
+            background: rgba(6, 182, 212, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radio-circle {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exam-option-btn.selected {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.15);
+        }
+
+        .exam-option-btn.selected .radio-circle {
+            border-color: var(--accent-cyan);
+            background-color: var(--accent-cyan);
+        }
+
+        .exam-nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 15px;
+        }
+
+        .admin-pass-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .admin-pass-box {
+            padding: 2.5rem;
+            border-radius: 28px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-box-large {
+            padding: 1.8rem;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 95vw;
+            height: 94vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #000;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 14px 22px;
+            border-radius: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: white;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-select {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #475569;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background: var(--header-bg);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 2.2rem;
+            margin-top: auto;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.focus-mode header,
+        body.focus-mode footer,
+        body.focus-mode .nav-tabs-platform,
+        body.focus-mode #announcementBar {
+            display: none !important;
+        }
+
+        .focus-toggle-btn {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+            padding: 0.45rem 0.95rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toastContainer"></div>
+
+    <!-- 1. شاشة الدخول والتسجيل -->
+    <div id="loginScreen">
+        <div class="login-card glass-box">
+            <div class="logo-icon" style="margin: 0 auto 1rem; width: 60px; height: 60px; font-size: 1.8rem;">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h2 style="background: linear-gradient(90deg, #0284c7, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; font-size: 1.9rem; font-weight: 900;">أكاديمية الإبداع</h2>
+            
+            <div class="tabs-header">
+                <button class="tab-btn active" id="registerTabBtn" onclick="playSound(); switchAuthTab('register')">إنشاء حساب</button>
+                <button class="tab-btn" id="loginTabBtn" onclick="playSound(); switchAuthTab('login')">تسجيل الدخول</button>
+            </div>
+
+            <!-- نموذج إنشاء الحساب (محدث بالكامل بالمتطلبات المطلوبة) -->
+            <form id="registerForm" class="auth-form active" onsubmit="handleRegister(event)">
+                <input type="text" id="regName" class="login-input" placeholder="اسم المستخدم الثلاثي" required>
+                <input type="email" id="regEmail" class="login-input" placeholder="البريد الإلكتروني" required>
+                <input type="tel" id="regPhone" class="login-input" placeholder="رقم هاتفك الشخصي" pattern="[0-9]+" required>
+                <input type="tel" id="regParentPhone" class="login-input" placeholder="رقم هاتف ولي الأمر" pattern="[0-9]+" required>
+                
+                <select id="regGrade" class="login-select" required>
+                    <option value="" disabled selected>اختر صفك الدراسي 📚</option>
+                    <option value="1sec">الصف الأول الثانوي</option>
+                    <option value="2sec">الصف الثاني الثانوي</option>
+                    <option value="3sec">الصف الثالث الثانوي</option>
+                </select>
+
+                <input type="password" id="regPassword" class="login-input" placeholder="كلمة المرور الخاصة بك" required>
+
+                <button type="submit" class="btn-main-login" onclick="playSound()">إنشاء حساب جديد <i class="fa-solid fa-rocket mr-1"></i></button>
+            </form>
+
+            <!-- نموذج تسجيل الدخول (يعتمد على الكود الشخصي وكلمة المرور) -->
+            <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                <input type="text" id="loginCode" class="login-input" placeholder="كود الطالب الشخصي (مثال: A101)" required>
+                <input type="password" id="loginPassword" class="login-input" placeholder="كلمة المرور" required>
+                <button type="submit" class="btn-main-login" onclick="playSound()">تسجيل الدخول <i class="fa-solid fa-key mr-1"></i></button>
+            </form>
+
+            <button type="button" class="btn-guest" onclick="playSound(); handleGuestLogin()">الدخول كزائر (Guest) <i class="fa-solid fa-user-circle"></i></button>
+        </div>
+    </div>
+
+    <!-- 2. المنصة الرئيسية للطالب -->
+    <div id="mainPlatform">
+        <!-- الشريط الإعلاني -->
+        <div id="announcementBar">📢 مرحباً بكم في منصة أكاديمية الإبداع التعليمية الذكية!</div>
+
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>أكاديمية <span>الإبداع</span></div>
+            </div>
+            
+            <div class="header-controls">
+                <button class="mode-badge-btn" onclick="playSound(); cycleDisplayMode()">
+                    <i class="fa-solid fa-sun" id="modeIcon"></i>
+                    <span id="modeText">الوضع الصباحي</span>
+                </button>
+                <button class="focus-toggle-btn" onclick="playSound(); toggleFocusMode()">
+                    <i class="fa-solid fa-eye"></i> التركيز
+                </button>
+                <button class="mode-badge-btn" onclick="playSound(); openSettingsModal()">
+                    <i class="fa-solid fa-gear"></i> الإعدادات
+                </button>
+
+                <div class="header-left-panel" style="display: flex; align-items: center; gap: 8px;">
+                    <button class="btn-admin-nav" onclick="playSound(); openAdminPassModal()">
+                        <i class="fa-solid fa-crown"></i> الأدمن
+                    </button>
+                    <div class="user-badge"><span id="myName">زائر</span></div>
+                    <div class="user-badge"><span id="myGradeBadge" style="color: #f59e0b;">زائر</span></div>
+                    <div class="user-badge">كود: <span id="myCode" style="color: #0284c7; font-weight: bold;">GUEST</span></div>
+                    <div class="user-badge">رصيد: <span id="myBalance" style="color: #10b981; font-weight: bold;">0</span> ج.م</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-tabs-platform">
+            <button class="platform-tab-btn active" id="tabLecs" onclick="playSound(); switchSection('lecs')"><i class="fa-solid fa-book-open"></i> المحاضرات</button>
+            <button class="platform-tab-btn" id="tabExams" onclick="playSound(); switchSection('exams')"><i class="fa-solid fa-file-pen"></i> الامتحانات</button>
+            <button class="platform-tab-btn" id="tabHomework" onclick="playSound(); switchSection('homework')"><i class="fa-solid fa-clipboard-list"></i> الواجبات</button>
+        </div>
+
+        <div class="container">
+            <div id="sectionLecs">
+                <div class="grid-cards" id="lecturesContainer">
+                    <p style="text-align: center; color: var(--text-muted);">لا توجد محاضرات مضافة حالياً.</p>
+                </div>
+            </div>
+
+            <div id="sectionExams" style="display: none;">
+                <div class="grid-cards" id="examsContainer">
+                    <p style="text-align: center; color: var(--text-muted);">لا توجد امتحانات مضافة حالياً.</p>
+                </div>
+            </div>
+
+            <div id="sectionHomework" style="display: none;">
+                <div class="grid-cards" id="homeworkContainer">
+                    <p style="text-align: center; color: var(--text-muted);">لا توجد واجبات مضافة حالياً.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>جميع الحقوق محفوظة © 2026 - أكاديمية الإبداع التعليمية الذكية</p>
+            <p style="font-size: 0.85rem; margin-top: 0.4rem; color: var(--accent-cyan);">لشحن الرصيد تواصل مع معلمك للحصول على كود الشحن الفوري</p>
+        </footer>
+    </div>
+
+    <!-- 3. صفحة اختبار الطالب -->
+    <div id="examSessionPage">
+        <div class="exam-session-box glass-box">
+            <div class="exam-top-bar">
+                <h3 id="sessionExamTitle" style="color: var(--accent-cyan); font-weight: 800;">عنوان الاختبار</h3>
+                <div class="timer-badge"><i class="fa-solid fa-stopwatch ml-1"></i> المتبقي: <span id="timerDisplay">00:00</span></div>
+            </div>
+
+            <div style="margin-bottom: 1.2rem; color: var(--text-muted); font-weight: bold;">
+                السؤال (<span id="currentQNum">1</span>) من (<span id="totalQNum">1</span>)
+            </div>
+
+            <h2 id="sessionQText" style="color: var(--text-main); margin-bottom: 1.8rem; font-weight: 800; font-size: 1.35rem;">نص السؤال هنا...</h2>
+
+            <div id="sessionOptionsContainer"></div>
+
+            <div class="exam-nav-buttons">
+                <button class="btn-card" style="width: 48%; background: #64748b;" onclick="playSound(); prevQuestion()"><i class="fa-solid fa-arrow-right"></i> السابق</button>
+                <button class="btn-card" style="width: 48%;" onclick="playSound(); handleExamNextOrSubmit()" id="nextBtn">التالي <i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. صفحة لوحة تحكم الأدمن -->
+    <div id="adminPage">
+        <div class="admin-header-bar">
+            <h2 style="color: var(--text-main); font-size: 1.3rem; font-weight: 900;"><i class="fa-solid fa-crown text-pink-500"></i> لوحة تحكم الأدمن الشاملة</h2>
+            <div class="admin-nav-actions">
+                <button class="btn-admin-action-top" style="background-color: #0284c7; color: white;" onclick="playSound(); saveAdminChanges()"><i class="fa-solid fa-floppy-disk"></i> حفظ التغييرات</button>
+                <button class="btn-admin-action-top" style="background-color: #ef4444; color: white;" onclick="playSound(); exitAdminPage()"><i class="fa-solid fa-door-open"></i> خروج</button>
+            </div>
+        </div>
+
+        <div class="admin-container">
+            <!-- قسم الإحصائيات -->
+            <div class="admin-stats-grid">
+                <div class="stat-card glass-box">
+                    <h4>إجمالي الطلاب</h4>
+                    <div class="number" id="statStudentsCount">0</div>
+                </div>
+                <div class="stat-card glass-box">
+                    <h4>إجمالي المحاضرات</h4>
+                    <div class="number" id="statLecturesCount">0</div>
+                </div>
+                <div class="stat-card glass-box">
+                    <h4>إجمالي الامتحانات</h4>
+                    <div class="number" id="statExamsCount">0</div>
+                </div>
+                <div class="stat-card glass-box">
+                    <h4>الإيرادات الكلية</h4>
+                    <div class="number" id="statRevenue">0 ج.م</div>
+                </div>
+            </div>
+
+            <!-- إعلانات المنصة -->
+            <div class="admin-card glass-box">
+                <h3>📢 نشر تنبيه / إعلان أعلى المنصة</h3>
+                <input type="text" id="adminNoticeInput" class="admin-input" placeholder="اكتب نص الإعلان الذي سيظهر لجميع الطلاب...">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-card" style="background: #10b981; flex: 1;" onclick="playSound(); publishNotice()">تفعيل الإعلان</button>
+                    <button class="btn-card" style="background: #ef4444; flex: 1;" onclick="playSound(); removeNotice()">إخفاء الإعلان</button>
+                </div>
+            </div>
+
+            <!-- إرسال إشعار فورى Toast -->
+            <div class="admin-card glass-box">
+                <h3>🔔 إرسال تنبيه Toast فوري للجميع</h3>
+                <input type="text" id="broadcastMsgInput" class="admin-input" placeholder="نص التنبيه الفوري...">
+                <button class="btn-card" onclick="playSound(); sendBroadcastToast()">إرسال التنبيه الفوري</button>
+            </div>
+
+            <!-- توليد كودات رصيد -->
+            <div class="admin-card glass-box">
+                <h3>🎟️ توليد كودات شحن الرصيد للطلاب</h3>
+                <input type="number" id="genAmount" class="admin-input" placeholder="قيمة الرصيد بالكود (ج.م)">
+                <button class="btn-card" onclick="playSound(); generateRechargeCode()">إنشاء الكود وتوليده</button>
+                
+                <h4 style="margin-top: 1.2rem; color: var(--accent-cyan);">الكودات المتاحة حالياً:</h4>
+                <div id="codesListContainer" style="margin-top: 10px; max-height: 160px; overflow-y: auto;">
+                    <p style="color: var(--text-muted);">لا توجد كودات منشأة بعد.</p>
+                </div>
+            </div>
+
+            <!-- إضافة محاضرة جديدة -->
+            <div class="admin-card glass-box">
+                <h3>📚 إضافة محاضرة جديدة</h3>
+                <input type="text" id="lecTitle" class="admin-input" placeholder="عنوان المحاضرة">
+                <input type="text" id="lecDesc" class="admin-input" placeholder="وصف المحاضرة">
+                <input type="number" id="lecPrice" class="admin-input" placeholder="السعر بالمصري (ج.م)">
+
+                <select id="lecGrade" class="admin-select">
+                    <option value="all">متاحة لجميع الصفوف الدراسية</option>
+                    <option value="1sec">الصف الأول الثانوي</option>
+                    <option value="2sec">الصف الثاني الثانوي</option>
+                    <option value="3sec">الصف الثالث الثانوي</option>
+                </select>
+
+                <input type="text" id="lecVideo" class="admin-input" placeholder="رابط فيديو يوتيوب (سيتم جلب صورته وتشغيله تلقائياً)">
+                <button class="btn-card" onclick="playSound(); addLecture()">نشر المحاضرة</button>
+            </div>
+
+            <!-- إدارة وحذف وتظهير المحاضرات المضافة -->
+            <div class="admin-card glass-box">
+                <h3>🛠️ إدارة المحاضرات (تظهير / إخفاء / حذف)</h3>
+                <div id="adminLecturesControlList">
+                    <p style="color: var(--text-muted);">لا توجد محاضرات مضافة بعد.</p>
+                </div>
+            </div>
+
+            <!-- إضافة واجب جديد -->
+            <div class="admin-card glass-box">
+                <h3>📋 إضافة واجب جديد للطلاب</h3>
+                <input type="text" id="hwTitle" class="admin-input" placeholder="عنوان الواجب">
+                <textarea id="hwDesc" class="admin-textarea" placeholder="تفاصيل وأسئلة الواجب المطلوب حله..." rows="3"></textarea>
+                <select id="hwGrade" class="admin-select">
+                    <option value="all">متاح لجميع الصفوف</option>
+                    <option value="1sec">الصف الأول الثانوي</option>
+                    <option value="2sec">الصف الثاني الثانوي</option>
+                    <option value="3sec">الصف الثالث الثانوي</option>
+                </select>
+                <button class="btn-card" style="background: #7c3aed;" onclick="playSound(); addHomework()">نشر الواجب</button>
+            </div>
+
+            <!-- إدارة وحذف وتظهير الواجبات المضافة -->
+            <div class="admin-card glass-box">
+                <h3>🛠️ إدارة الواجبات (تظهير / إخفاء / حذف)</h3>
+                <div id="adminHomeworkControlList">
+                    <p style="color: var(--text-muted);">لا توجد واجبات مضافة بعد.</p>
+                </div>
+            </div>
+
+            <!-- إضافة امتحان جديد -->
+            <div class="admin-card glass-box">
+                <h3>📝 إضافة امتحان جديد</h3>
+                <input type="text" id="examTitle" class="admin-input" placeholder="عنوان الامتحان">
+                <input type="number" id="examTime" class="admin-input" placeholder="وقت الامتحان بالدقائق">
+                
+                <div style="background: rgba(2, 132, 199, 0.05); padding: 1.2rem; border-radius: 16px; margin-bottom: 1rem; border: 1px solid var(--border-color);">
+                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.8rem;">إضافة أسئلة لهذا الامتحان:</h4>
+                    <input type="text" id="examQ" class="admin-input" placeholder="نص السؤال">
+                    <input type="text" id="opt1" class="admin-input" placeholder="الاختيار الأول">
+                    <input type="text" id="opt2" class="admin-input" placeholder="الاختيار الثاني">
+                    <input type="text" id="opt3" class="admin-input" placeholder="الاختيار الثالث">
+                    <input type="text" id="opt4" class="admin-input" placeholder="الاختيار الرابع">
+                    
+                    <label style="font-weight: bold; color: var(--accent-cyan); display: block; margin-bottom: 6px;">حدد الإجابة الصحيحة:</label>
+                    <select id="correctAnsSelect" class="admin-select">
+                        <option value="1">الاختيار الأول</option>
+                        <option value="2">الاختيار الثاني</option>
+                        <option value="3">الاختيار الثالث</option>
+                        <option value="4">الاختيار الرابع</option>
+                    </select>
+
+                    <button class="btn-card" style="background: #0284c7;" onclick="playSound(); addQuestionToCurrentExam()">إضافة السؤال للقائمة ➕</button>
+                    <p style="margin-top: 10px; font-weight: bold; color: var(--accent-cyan);">الأسئلة المضافة حالياً: <span id="qCountBadge">0</span></p>
+                </div>
+
+                <button class="btn-card" style="background: #10b981;" onclick="playSound(); publishExam()">نشر الامتحان للطلاب</button>
+            </div>
+
+            <!-- التحكم بالامتحانات (تشغيل / إيقاف / حذف) -->
+            <div class="admin-card glass-box">
+                <h3>⚙️ التحكم بالامتحانات (تظهير / إخفاء / حذف)</h3>
+                <div id="adminExamsControlList">
+                    <p style="color: var(--text-muted);">لا توجد امتحانات مضافة بعد.</p>
+                </div>
+            </div>
+
+            <!-- إدارة الطلاب، شحن الرصيد، وتعديل بياناتهم (الاسم، البريد، الهاتف، الكود، الباسورد) -->
+            <div class="admin-card glass-box">
+                <h3>👥 إدارة الطلاب المسجلين (تعديل البيانات، الشحن، الحظر، الحذف)</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <select id="targetStudentSelect" class="admin-select" style="flex: 2;">
+                        <option value="">اختر طالباً للشحن المباشر...</option>
+                    </select>
+                    <input type="number" id="chargeAmount" class="admin-input" placeholder="المبلغ (ج.م)" style="flex: 1;">
+                </div>
+                <button class="btn-card" onclick="playSound(); chargeStudentBalanceDirect()">شحن رصيد مباشر 💳</button>
+
+                <h4 style="margin-top: 1.8rem; color: var(--accent-cyan);">قائمة الطلاب المسجلين وتعديل معلوماتهم:</h4>
+                <div style="overflow-x: auto;">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>الكود</th>
+                                <th>الاسم</th>
+                                <th>الصف</th>
+                                <th>الهاتف</th>
+                                <th>ولي الأمر</th>
+                                <th>البريد</th>
+                                <th>الرصيد</th>
+                                <th>الحالة</th>
+                                <th>تحكم الأدمن</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminStudentsList">
+                            <tr><td colspan="9" style="text-align:center;">لا يوجد طلاب مسجلين</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- تصفير البيانات التجريبية -->
+            <div class="admin-card glass-box" style="border-color: rgba(239, 68, 68, 0.4);">
+                <h3 style="color: #ef4444;">⚠️ إعادة ضبط البيانات التجريبية</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">يمكنك إعادة تحميل البيانات الافتراضية التجريبية وتصفير المنصة.</p>
+                <button class="btn-card" style="background: #ef4444;" onclick="playSound(); resetDemoData()">إعادة ضبط النظام كاملاً 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل بيانات الطالب من قِبل الأدمن -->
+    <div class="admin-pass-modal" id="editStudentModal">
+        <div class="admin-pass-box glass-box" style="text-align: right;">
+            <h3 style="color: var(--accent-cyan); margin-bottom: 1rem; text-align: center;">✏️ تعديل بيانات الطالب</h3>
+            <input type="hidden" id="editStudentOriginalCode">
+            
+            <label style="font-size: 0.85rem; font-weight: bold;">اسم الطالب:</label>
+            <input type="text" id="editStudentName" class="admin-input">
+
+            <label style="font-size: 0.85rem; font-weight: bold;">كود الطالب:</label>
+            <input type="text" id="editStudentCode" class="admin-input">
+
+            <label style="font-size: 0.85rem; font-weight: bold;">البريد الإلكتروني:</label>
+            <input type="email" id="editStudentEmail" class="admin-input">
+
+            <label style="font-size: 0.85rem; font-weight: bold;">رقم الهاتف:</label>
+            <input type="tel" id="editStudentPhone" class="admin-input">
+
+            <label style="font-size: 0.85rem; font-weight: bold;">رقم هاتف ولي الأمر:</label>
+            <input type="tel" id="editStudentParentPhone" class="admin-input">
+
+            <label style="font-size: 0.85rem; font-weight: bold;">كلمة المرور:</label>
+            <input type="text" id="editStudentPassword" class="admin-input">
+
+            <button class="btn-card" style="background: #10b981; margin-top: 10px;" onclick="playSound(); saveEditedStudentData()">حفظ التعديلات ✅</button>
+            <button class="btn-card" style="background: #ef4444; margin-top: 6px;" onclick="playSound(); closeEditStudentModal()">إلغاء ✖️</button>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد تسليم الامتحان -->
+    <div class="admin-pass-modal" id="confirmSubmitModal">
+        <div class="admin-pass-box glass-box">
+            <div style="font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question"></i></div>
+            <h3 style="color: var(--text-main); margin-bottom: 0.5rem; font-weight: 800;">تسليم الامتحان</h3>
+            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">هل أنت متأكد من إنهاء الامتحان وتسليم إجاباتك الآن؟</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-card" style="background: #10b981;" onclick="playSound(); confirmAndSubmitExam()">نعم، تسليم الأن ✅</button>
+                <button class="btn-card" style="background: #ef4444;" onclick="playSound(); closeConfirmSubmitModal()">مراجعة الإجابات ✖️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إدخال باسورد الأدمن 969738 -->
+    <div class="admin-pass-modal" id="adminPassModal">
+        <div class="admin-pass-box glass-box">
+            <h3 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-weight: 800;">دخول لوحة الأدمن ⚙️</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;">أدخل كلمة مرور المسؤول</p>
+            <input type="password" id="insideAdminPassInput" class="admin-input" placeholder="كلمة المرور">
+            <button class="btn-card" onclick="playSound(); verifyAdminPass()">دخول</button>
+            <button class="btn-card" style="background: #ef4444; margin-top: 10px;" onclick="playSound(); closeAdminPassModal()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة إعدادات الطالب وشحن الرصيد بالكود -->
+    <div class="admin-pass-modal" id="settingsModal">
+        <div class="admin-pass-box glass-box">
+            <h3 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-weight: 800;">⚙️ إعدادات الطالب</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">شحن رصيد بواسطة كود:</p>
+            <input type="text" id="studentRechargeCodeInput" class="admin-input" placeholder="أدخل كود الشحن">
+            <button class="btn-card" style="margin-bottom: 1.2rem;" onclick="playSound(); redeemStudentCode()">شحن الرصيد</button>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">تحديث رقم الهاتف:</p>
+            <input type="tel" id="newStudentPhoneInput" class="admin-input" placeholder="رقم الهاتف الجديد">
+            <button class="btn-card" style="background: #0284c7;" onclick="playSound(); updateStudentPhone()">تغيير الرقم 🔑</button>
+
+            <button class="btn-card" style="background: #ef4444; margin-top: 12px;" onclick="playSound(); closeSettingsModal()">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- نافذة عرض الفيديو -->
+    <div class="modal-overlay" id="videoModal">
+        <div class="modal-box-large glass-box">
+            <h3 id="modalTitle" style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 800;">عنوان الدرس</h3>
+            
+            <div class="video-responsive" id="youtubePlayerBox">
+                <iframe id="youtubeIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-controls-bar">
+                <div class="control-group">
+                    <label style="font-size: 0.85rem;">⚡ السرعة:</label>
+                    <select id="playbackSpeedSelect" class="control-select">
+                        <option value="1">1x (عادي)</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label style="font-size: 0.85rem;">⚙️ الجودة:</label>
+                    <select id="videoQualitySelect" class="control-select">
+                        <option value="1080">1080p (FHD)</option>
+                        <option value="720">720p (HD)</option>
+                        <option value="480">480p</option>
+                        <option value="360">360p</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-card" style="background: #ef4444; margin-top: 12px; padding: 0.6rem;" onclick="playSound(); closeVideoModal()">إغلاق الدرس ✖️</button>
+        </div>
+    </div>
+
+    <!-- البرمجة (JavaScript) وتفعيل localStorage لجميع البيانات -->
+    <script>
+        let currentStudent = null;
+        let isAdmin = false;
+        let isGuest = false;
+        let studentsDB = [];
+        let lecturesDB = [];
+        let examsDB = [];
+        let homeworkDB = [];
+        let rechargeCodesDB = [];
+        let totalPlatformRevenue = 0;
+        let announcementTextData = "";
+
+        let tempExamQuestions = [];
+        let activeExam = null;
+        let currentQIndex = 0;
+        let studentAnswers = {};
+        let examTimerInterval = null;
+        let timeRemainingSeconds = 0;
+        let currentDisplayMode = 'light';
+
+        const gradeNames = {
+            '1sec': 'الصف الأول الثانوي',
+            '2sec': 'الصف الثاني الثانوي',
+            '3sec': 'الصف الثالث الثانوي'
+        };
+
+        function closeAllModals() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('settingsModal').style.display = 'none';
+            document.getElementById('adminPassModal').style.display = 'none';
+            document.getElementById('confirmSubmitModal').style.display = 'none';
+            document.getElementById('editStudentModal').style.display = 'none';
+        }
+
+        function saveAllDataToStorage() {
+            localStorage.setItem('ebda_studentsDB', JSON.stringify(studentsDB));
+            localStorage.setItem('ebda_lecturesDB', JSON.stringify(lecturesDB));
+            localStorage.setItem('ebda_examsDB', JSON.stringify(examsDB));
+            localStorage.setItem('ebda_homeworkDB', JSON.stringify(homeworkDB));
+            localStorage.setItem('ebda_rechargeCodesDB', JSON.stringify(rechargeCodesDB));
+            localStorage.setItem('ebda_totalPlatformRevenue', totalPlatformRevenue.toString());
+            localStorage.setItem('ebda_announcementText', announcementTextData);
+            if (currentStudent) {
+                localStorage.setItem('ebda_currentStudentCode', currentStudent.code);
+            } else {
+                localStorage.removeItem('ebda_currentStudentCode');
+            }
+        }
+
+        function loadAllDataFromStorage() {
+            closeAllModals();
+
+            const localStudents = localStorage.getItem('ebda_studentsDB');
+            const localLectures = localStorage.getItem('ebda_lecturesDB');
+            const localExams = localStorage.getItem('ebda_examsDB');
+            const localHomework = localStorage.getItem('ebda_homeworkDB');
+            const localCodes = localStorage.getItem('ebda_rechargeCodesDB');
+            const localRevenue = localStorage.getItem('ebda_totalPlatformRevenue');
+            const localNotice = localStorage.getItem('ebda_announcementText');
+
+            if (localStudents && localLectures && localExams) {
+                studentsDB = JSON.parse(localStudents);
+                lecturesDB = JSON.parse(localLectures);
+                examsDB = JSON.parse(localExams);
+                homeworkDB = localHomework ? JSON.parse(localHomework) : [];
+                rechargeCodesDB = localCodes ? JSON.parse(localCodes) : [];
+                totalPlatformRevenue = localRevenue ? parseFloat(localRevenue) : 0;
+                announcementTextData = localNotice || "";
+
+                if (announcementTextData) {
+                    const bar = document.getElementById('announcementBar');
+                    bar.innerText = "📢 " + announcementTextData;
+                    bar.style.display = 'block';
+                }
+
+                const savedCode = localStorage.getItem('ebda_currentStudentCode');
+                if (savedCode) {
+                    let student = studentsDB.find(s => s.code === savedCode);
+                    if (student && !student.isBanned) {
+                        currentStudent = student;
+                        isGuest = false;
+                        updateStudentUI();
+                        openPlatform();
+                    } else {
+                        document.getElementById('loginScreen').style.display = 'flex';
+                    }
+                } else {
+                    document.getElementById('loginScreen').style.display = 'flex';
+                }
+            } else {
+                initDemoData();
+                document.getElementById('loginScreen').style.display = 'flex';
+            }
+        }
+
+        function initDemoData() {
+            studentsDB = [
+                { code: "A101", name: "أحمد محمد علي", email: "ahmed@example.com", phone: "01012345678", parentPhone: "01099887766", grade: "1sec", password: "123", balance: 150, unlockedLecs: [1], isBanned: false },
+                { code: "B202", name: "سارة محمود حسن", email: "sara@example.com", phone: "01122334455", parentPhone: "01188776655", grade: "2sec", password: "123", balance: 50, unlockedLecs: [], isBanned: false }
+            ];
+
+            lecturesDB = [
+                {
+                    id: 1,
+                    title: "المحاضرة الأولى: مقدمة وإسقاط الجبر",
+                    desc: "شرح كامل لأساسيات الجبر مع حل تدريبات متقدمة من الامتحانات الأخيرة.",
+                    price: 50,
+                    grade: "1sec",
+                    active: true,
+                    thumb: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+                    video: "dQw4w9WgXcQ"
+                }
+            ];
+
+            examsDB = [
+                {
+                    id: 101,
+                    title: "اختبار الجبر والرياضيات الشامل",
+                    timeMin: 15,
+                    active: true,
+                    questions: [
+                        { q: "ما هو حاصل ضرب 7 في 8؟", opts: ["54", "56", "64", "49"], ans: "56" }
+                    ]
+                }
+            ];
+
+            homeworkDB = [
+                { id: 1, title: "واجب التطبيق الرياضي الأسبوعي", desc: "قم بحل التمارين وإرسال الإجابة.", grade: "1sec", active: true }
+            ];
+
+            rechargeCodesDB = [
+                { code: "CRD-VIP100", amount: 100, used: false }
+            ];
+
+            totalPlatformRevenue = 500;
+            announcementTextData = "مرحباً بكم في منصة أكاديمية الإبداع التعليمية الذكية!";
+            saveAllDataToStorage();
+        }
+
+        function resetDemoData() {
+            localStorage.clear();
+            initDemoData();
+            currentStudent = null;
+            isGuest = false;
+            isAdmin = false;
+            closeAllModals();
+            updateStudentUI();
+            renderLectures();
+            renderExams();
+            renderHomework();
+            updateAdminStudentsTable();
+            renderAdminLecturesControl();
+            renderAdminHomeworkControl();
+            renderAdminExamsControl();
+            renderCodesList();
+            updateAdminStats();
+            document.getElementById('mainPlatform').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            showToast("تم إعادة ضبط بيانات المنصة التجريبية بنجاح 🔄");
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            let icon = '✨';
+            if (type === 'error') icon = '❌';
+            if (type === 'info') icon = 'ℹ️';
+
+            toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function playSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        function cycleDisplayMode() {
+            const body = document.body;
+            const modeText = document.getElementById('modeText');
+            const modeIcon = document.getElementById('modeIcon');
+
+            if (currentDisplayMode === 'light') {
+                currentDisplayMode = 'dark';
+                body.classList.remove('eye-mode');
+                body.classList.add('dark-mode');
+                modeText.innerText = "الوضع الليلي";
+                modeIcon.className = "fa-solid fa-moon";
+                showToast("تم التبديل إلى الوضع الليلي 🌙", "info");
+            } else if (currentDisplayMode === 'dark') {
+                currentDisplayMode = 'eye';
+                body.classList.remove('dark-mode');
+                body.classList.add('eye-mode');
+                modeText.innerText = "حماية البصر";
+                modeIcon.className = "fa-solid fa-shield-halved";
+                showToast("تم تفعيل وضع حماية البصر للعين 👁️", "info");
+            } else {
+                currentDisplayMode = 'light';
+                body.classList.remove('eye-mode', 'dark-mode');
+                modeText.innerText = "الوضع الصباحي";
+                modeIcon.className = "fa-solid fa-sun";
+                showToast("تم التبديل إلى الوضع الصباحي ☀️", "info");
+            }
+        }
+
+        function toggleFocusMode() {
+            document.body.classList.toggle('focus-mode');
+            const isFocus = document.body.classList.contains('focus-mode');
+            showToast(isFocus ? "تم تفعيل وضع التركيز 👁️" : "تم إلغاء وضع التركيز", "info");
+        }
+
+        function switchAuthTab(tab) {
+            document.getElementById('registerTabBtn').classList.remove('active');
+            document.getElementById('loginTabBtn').classList.remove('active');
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById('loginForm').classList.remove('active');
+
+            if (tab === 'register') {
+                document.getElementById('registerTabBtn').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            } else {
+                document.getElementById('loginTabBtn').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            }
+        }
+
+        function handleGuestLogin() {
+            isGuest = true;
+            isAdmin = false;
+            currentStudent = null;
+            updateStudentUI();
+            openPlatform();
+            saveAllDataToStorage();
+            showToast("مرحباً بك! تم الدخول كزائر...", "info");
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const parentPhone = document.getElementById('regParentPhone').value.trim();
+            const grade = document.getElementById('regGrade').value;
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (!grade) {
+                showToast("يرجى اختيار الصف الدراسي!", "error");
+                return;
+            }
+
+            let existing = studentsDB.find(s => s.phone === phone);
+            if (existing) {
+                showToast("رقم الهاتف مسجل بالفعل!", "error");
+                switchAuthTab('login');
+                return;
+            }
+
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let uniqueCode = "";
+            for (let i = 0; i < 4; i++) {
+                uniqueCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            const newStudent = {
+                code: uniqueCode,
+                name: name,
+                email: email,
+                phone: phone,
+                parentPhone: parentPhone,
+                grade: grade,
+                password: password,
+                balance: 0,
+                unlockedLecs: [],
+                isBanned: false
+            };
+
+            studentsDB.push(newStudent);
+            currentStudent = newStudent;
+            isGuest = false;
+            isAdmin = false;
+
+            updateStudentUI();
+            openPlatform();
+            updateAdminStats();
+            saveAllDataToStorage();
+            
+            // إظهار تنبيه بالكود الشخصي وكلمة المرور
+            alert(`تم إنشاء الحساب بنجاح!\nكودك الشخصي لتسجيل الدخول هو: ${uniqueCode}\nاحتفظ به جيداً مع كلمة المرور.`);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const code = document.getElementById('loginCode').value.trim().toUpperCase();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            let student = studentsDB.find(s => s.code === code && s.password === password);
+            if (student) {
+                if (student.isBanned) {
+                    showToast("عفواً، حسابك محظور من قبل الأدمن 🚫", "error");
+                    return;
+                }
+                currentStudent = student;
+                isGuest = false;
+                isAdmin = false;
+                updateStudentUI();
+                openPlatform();
+                saveAllDataToStorage();
+                showToast("أهلاً بعودتك يا " + student.name + " 🎉");
+            } else {
+                showToast("كود الطالب أو كلمة المرور غير صحيحة!", "error");
+            }
+        }
+
+        function openPlatform() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'none';
+            document.getElementById('examSessionPage').style.display = 'none';
+            document.getElementById('mainPlatform').style.display = 'block';
+            renderLectures();
+            renderExams();
+            renderHomework();
+        }
+
+        function updateStudentUI() {
+            if (currentStudent) {
+                document.getElementById('myCode').innerText = currentStudent.code;
+                document.getElementById('myName').innerText = currentStudent.name;
+                document.getElementById('myGradeBadge').innerText = gradeNames[currentStudent.grade] || 'غير محدد';
+                document.getElementById('myBalance').innerText = currentStudent.balance;
+            } else {
+                document.getElementById('myCode').innerText = "GUEST";
+                document.getElementById('myName').innerText = "زائر 👤";
+                document.getElementById('myGradeBadge').innerText = "زائر";
+                document.getElementById('myBalance').innerText = "0";
+            }
+        }
+
+        function switchSection(sec) {
+            document.getElementById('tabLecs').classList.remove('active');
+            document.getElementById('tabExams').classList.remove('active');
+            document.getElementById('tabHomework').classList.remove('active');
+            document.getElementById('sectionLecs').style.display = 'none';
+            document.getElementById('sectionExams').style.display = 'none';
+            document.getElementById('sectionHomework').style.display = 'none';
+
+            if (sec === 'lecs') {
+                document.getElementById('tabLecs').classList.add('active');
+                document.getElementById('sectionLecs').style.display = 'block';
+            } else if (sec === 'exams') {
+                document.getElementById('tabExams').classList.add('active');
+                document.getElementById('sectionExams').style.display = 'block';
+            } else {
+                document.getElementById('tabHomework').classList.add('active');
+                document.getElementById('sectionHomework').style.display = 'block';
+            }
+        }
+
+        function openAdminPassModal() {
+            document.getElementById('adminPassModal').style.display = 'flex';
+        }
+
+        function closeAdminPassModal() {
+            document.getElementById('adminPassModal').style.display = 'none';
+            document.getElementById('insideAdminPassInput').value = "";
+        }
+
+        function verifyAdminPass() {
+            const pass = document.getElementById('insideAdminPassInput').value;
+            if (pass === "969738") {
+                isAdmin = true;
+                closeAdminPassModal();
+                document.getElementById('mainPlatform').style.display = 'none';
+                document.getElementById('examSessionPage').style.display = 'none';
+                document.getElementById('adminPage').style.display = 'block';
+                updateAdminStudentsTable();
+                renderAdminLecturesControl();
+                renderAdminHomeworkControl();
+                renderAdminExamsControl();
+                renderCodesList();
+                updateAdminStats();
+                showToast("تم دخول لوحة تحكم الأدمن بنجاح 👑");
+            } else {
+                showToast("كلمة المرور غير صحيحة!", "error");
+                document.getElementById('insideAdminPassInput').value = "";
+            }
+        }
+
+        function updateAdminStats() {
+            document.getElementById('statStudentsCount').innerText = studentsDB.length;
+            document.getElementById('statLecturesCount').innerText = lecturesDB.length;
+            document.getElementById('statExamsCount').innerText = examsDB.length;
+            document.getElementById('statRevenue').innerText = totalPlatformRevenue + " ج.م";
+        }
+
+        function publishNotice() {
+            const text = document.getElementById('adminNoticeInput').value.trim();
+            if (text) {
+                announcementTextData = text;
+                const bar = document.getElementById('announcementBar');
+                bar.innerText = "📢 " + text;
+                bar.style.display = 'block';
+                saveAllDataToStorage();
+                showToast("تم نشر الإعلان أعلى المنصة بنجاح!");
+            } else {
+                showToast("يرجى كتابة نص الإعلان!", "error");
+            }
+        }
+
+        function removeNotice() {
+            announcementTextData = "";
+            document.getElementById('announcementBar').style.display = 'none';
+            saveAllDataToStorage();
+            showToast("تم إخفاء الإعلان", "info");
+        }
+
+        function sendBroadcastToast() {
+            const msg = document.getElementById('broadcastMsgInput').value.trim();
+            if (msg) {
+                showToast(msg, "info");
+                document.getElementById('broadcastMsgInput').value = "";
+            } else {
+                showToast("أدخل نص التنبيه أولاً", "error");
+            }
+        }
+
+        function saveAdminChanges() {
+            saveAllDataToStorage();
+            showToast("تم حفظ جميع التغييرات في النظام بنجاح! 💾");
+        }
+
+        function exitAdminPage() {
+            document.getElementById('adminPage').style.display = 'none';
+            document.getElementById('mainPlatform').style.display = 'block';
+            updateStudentUI();
+            renderLectures();
+            renderExams();
+            renderHomework();
+            showToast("العودة إلى المنصة الرئيسية...", "info");
+        }
+
+        function generateRechargeCode() {
+            const amount = parseFloat(document.getElementById('genAmount').value);
+            if (isNaN(amount) || amount <= 0) {
+                showToast("يرجى إدخال مبلغ صحيح للكود!", "error");
+                return;
+            }
+
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let code = "CRD-";
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            rechargeCodesDB.push({ code: code, amount: amount, used: false });
+            document.getElementById('genAmount').value = "";
+            renderCodesList();
+            saveAllDataToStorage();
+            showToast("تم إنشاء كود الشحن بنجاح: " + code);
+        }
+
+        function renderCodesList() {
+            const container = document.getElementById('codesListContainer');
+            if (rechargeCodesDB.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">لا توجد كودات منشأة بعد.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            rechargeCodesDB.forEach(c => {
+                let status = c.used ? '<span style="color: #ef4444;">(مستخدم)</span>' : '<span style="color: #10b981;">(متاح)</span>';
+                container.innerHTML += `<div style="font-size: 0.9rem; padding: 6px 0; border-bottom: 1px solid var(--border-color);">الكود: <b>${c.code}</b> | القيمة: <b>${c.amount} ج.م</b> ${status}</div>`;
+            });
+        }
+
+        function redeemStudentCode() {
+            if (isGuest) {
+                showToast("الزائر لا يمكنه شحن رصيد!", "error");
+                return;
+            }
+
+            const inputCode = document.getElementById('studentRechargeCodeInput').value.trim();
+            let foundCode = rechargeCodesDB.find(c => c.code === inputCode);
+
+            if (!foundCode) {
+                showToast("كود الشحن غير صحيح!", "error");
+                return;
+            }
+
+            if (foundCode.used) {
+                showToast("تم استخدام هذا الكود سابقاً!", "error");
+                return;
+            }
+
+            foundCode.used = true;
+            currentStudent.balance += foundCode.amount;
+            closeSettingsModal();
+            updateStudentUI();
+            saveAllDataToStorage();
+            showToast(`🎉 تم شحن رصيدك بنجاح بمبلغ ${foundCode.amount} جنيه مصري!`);
+        }
+
+        function extractYouTubeId(url) {
+            if (!url) return '';
+            let videoId = '';
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if (url.includes('watch?v=')) {
+                videoId = url.split('watch?v=')[1].split('&')[0];
+            } else if (url.includes('embed/')) {
+                videoId = url.split('embed/')[1].split('?')[0];
+            } else {
+                videoId = url.trim();
+            }
+            return videoId;
+        }
+
+        function addLecture() {
+            const title = document.getElementById('lecTitle').value;
+            const desc = document.getElementById('lecDesc').value;
+            const price = parseFloat(document.getElementById('lecPrice').value);
+            const grade = document.getElementById('lecGrade').value;
+            const videoInput = document.getElementById('lecVideo').value;
+
+            if (title && !isNaN(price) && videoInput) {
+                let videoId = extractYouTubeId(videoInput);
+                let thumb = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : 'https://via.placeholder.com/300x180?text=Lecture';
+
+                lecturesDB.push({ id: Date.now(), title, desc, price, grade, active: true, thumb, video: videoId });
+                document.getElementById('lecTitle').value = "";
+                document.getElementById('lecDesc').value = "";
+                document.getElementById('lecPrice').value = "";
+                document.getElementById('lecVideo').value = "";
+                
+                updateAdminStats();
+                renderAdminLecturesControl();
+                saveAllDataToStorage();
+                showToast("تم نشر المحاضرة بنجاح 🚀");
+            } else {
+                showToast("يرجى إدخال عنوان المحاضرة، السعر ورابط الفيديو.", "error");
+            }
+        }
+
+        function renderAdminLecturesControl() {
+            const container = document.getElementById('adminLecturesControlList');
+            if (lecturesDB.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">لا توجد محاضرات مضافة بعد.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            lecturesDB.forEach(lec => {
+                let statusText = lec.active ? '<b style="color:#10b981;">ظاهرة للطلاب 👀</b>' : '<b style="color:#ef4444;">مخفية 🙈</b>';
+                let btnText = lec.active ? 'إخفاء 🙈' : 'تظهير 👀';
+                let btnBg = lec.active ? '#f59e0b' : '#10b981';
+
+                container.innerHTML += `
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: rgba(2, 132, 199, 0.05);">
+                        <div>
+                            <h4 style="color: var(--accent-cyan); font-size: 1rem;">${lec.title}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">الحالة: ${statusText} | السعر: ${lec.price} ج.م</p>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn-card" style="background: ${btnBg}; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); toggleLectureStatus(${lec.id})">${btnText}</button>
+                            <button class="btn-card" style="background: #ef4444; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); deleteLecture(${lec.id})">حذف 🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleLectureStatus(lecId) {
+            let lec = lecturesDB.find(l => l.id === lecId);
+            if (lec) {
+                lec.active = !lec.active;
+                renderAdminLecturesControl();
+                renderLectures();
+                saveAllDataToStorage();
+                showToast("تم تحديث حالة المحاضرة بنجاح!");
+            }
+        }
+
+        function deleteLecture(lecId) {
+            lecturesDB = lecturesDB.filter(l => l.id !== lecId);
+            renderAdminLecturesControl();
+            renderLectures();
+            updateAdminStats();
+            saveAllDataToStorage();
+            showToast("تم حذف المحاضرة بنجاح", "info");
+        }
+
+        function addHomework() {
+            const title = document.getElementById('hwTitle').value.trim();
+            const desc = document.getElementById('hwDesc').value.trim();
+            const grade = document.getElementById('hwGrade').value;
+
+            if (title && desc) {
+                homeworkDB.push({ id: Date.now(), title, desc, grade, active: true });
+                document.getElementById('hwTitle').value = "";
+                document.getElementById('hwDesc').value = "";
+                renderAdminHomeworkControl();
+                saveAllDataToStorage();
+                showToast("تم إضافة الواجب بنجاح 📋");
+            } else {
+                showToast("يرجى ملء كافة بيانات الواجب!", "error");
+            }
+        }
+
+        function renderAdminHomeworkControl() {
+            const container = document.getElementById('adminHomeworkControlList');
+            if (homeworkDB.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">لا توجد واجبات مضافة بعد.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            homeworkDB.forEach(hw => {
+                let statusText = hw.active ? '<b style="color:#10b981;">ظاهر للطلاب 👀</b>' : '<b style="color:#ef4444;">مخفي 🙈</b>';
+                let btnText = hw.active ? 'إخفاء 🙈' : 'تظهير 👀';
+                let btnBg = hw.active ? '#f59e0b' : '#10b981';
+
+                container.innerHTML += `
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: rgba(2, 132, 199, 0.05);">
+                        <div>
+                            <h4 style="color: var(--accent-cyan); font-size: 1rem;">${hw.title}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">الحالة: ${statusText}</p>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn-card" style="background: ${btnBg}; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); toggleHomeworkStatus(${hw.id})">${btnText}</button>
+                            <button class="btn-card" style="background: #ef4444; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); deleteHomework(${hw.id})">حذف 🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleHomeworkStatus(hwId) {
+            let hw = homeworkDB.find(h => h.id === hwId);
+            if (hw) {
+                hw.active = !hw.active;
+                renderAdminHomeworkControl();
+                renderHomework();
+                saveAllDataToStorage();
+                showToast("تم تحديث حالة الواجب بنجاح!");
+            }
+        }
+
+        function deleteHomework(hwId) {
+            homeworkDB = homeworkDB.filter(h => h.id !== hwId);
+            renderAdminHomeworkControl();
+            renderHomework();
+            saveAllDataToStorage();
+            showToast("تم حذف الواجب بنجاح", "info");
+        }
+
+        function addQuestionToCurrentExam() {
+            const q = document.getElementById('examQ').value;
+            const o1 = document.getElementById('opt1').value;
+            const o2 = document.getElementById('opt2').value;
+            const o3 = document.getElementById('opt3').value;
+            const o4 = document.getElementById('opt4').value;
+            const correctIndex = parseInt(document.getElementById('correctAnsSelect').value);
+
+            let ansText = "";
+            if (correctIndex === 1) ansText = o1;
+            else if (correctIndex === 2) ansText = o2;
+            else if (correctIndex === 3) ansText = o3;
+            else if (correctIndex === 4) ansText = o4;
+
+            if (q && o1 && o2 && o3 && o4 && ansText) {
+                tempExamQuestions.push({ q, opts: [o1, o2, o3, o4], ans: ansText });
+                document.getElementById('examQ').value = "";
+                document.getElementById('opt1').value = "";
+                document.getElementById('opt2').value = "";
+                document.getElementById('opt3').value = "";
+                document.getElementById('opt4').value = "";
+                document.getElementById('qCountBadge').innerText = tempExamQuestions.length;
+                showToast("تم إضافة السؤال بالقائمة!");
+            } else {
+                showToast("يرجى ملء كافة حقول السؤال.", "error");
+            }
+        }
+
+        function publishExam() {
+            const title = document.getElementById('examTitle').value;
+            const timeMin = parseInt(document.getElementById('examTime').value);
+
+            if (title && !isNaN(timeMin) && tempExamQuestions.length > 0) {
+                examsDB.push({
+                    id: Date.now(),
+                    title: title,
+                    timeMin: timeMin,
+                    questions: [...tempExamQuestions],
+                    active: true
+                });
+
+                document.getElementById('examTitle').value = "";
+                document.getElementById('examTime').value = "";
+                tempExamQuestions = [];
+                document.getElementById('qCountBadge').innerText = "0";
+
+                updateAdminStats();
+                saveAllDataToStorage();
+                showToast("🎉 تم نشر الامتحان للطلاب بنجاح!");
+                renderAdminExamsControl();
+                renderExams();
+            } else {
+                showToast("يرجى كتابة عنوان الامتحان، الوقت، وسؤال واحد على الأقل.", "error");
+            }
+        }
+
+        function renderAdminExamsControl() {
+            const container = document.getElementById('adminExamsControlList');
+            if (examsDB.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">لا توجد امتحانات مضافة بعد.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            examsDB.forEach(exam => {
+                let statusText = exam.active ? '<b style="color:#10b981;">ظاهر للطلاب 👀</b>' : '<b style="color:#ef4444;">مخفي 🙈</b>';
+                let btnText = exam.active ? 'إخفاء 🙈' : 'تظهير 👀';
+                let btnBg = exam.active ? '#f59e0b' : '#10b981';
+
+                container.innerHTML += `
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: rgba(2, 132, 199, 0.05);">
+                        <div>
+                            <h4 style="color: var(--accent-cyan); font-size: 1rem;">${exam.title}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">الحالة: ${statusText} | الأسئلة: ${exam.questions.length}</p>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn-card" style="background: ${btnBg}; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); toggleExamStatus(${exam.id})">${btnText}</button>
+                            <button class="btn-card" style="background: #ef4444; width: auto; padding: 0.4rem 0.8rem; margin-top:0; font-size: 0.85rem;" onclick="playSound(); deleteExam(${exam.id})">حذف 🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleExamStatus(examId) {
+            let ex = examsDB.find(e => e.id === examId);
+            if (ex) {
+                ex.active = !ex.active;
+                renderAdminExamsControl();
+                renderExams();
+                saveAllDataToStorage();
+                showToast("تم تحديث حالة الامتحان بنجاح!");
+            }
+        }
+
+        function deleteExam(examId) {
+            examsDB = examsDB.filter(e => e.id !== examId);
+            renderAdminExamsControl();
+            renderExams();
+            updateAdminStats();
+            saveAllDataToStorage();
+            showToast("تم حذف الامتحان بنجاح", "info");
+        }
+
+        function chargeStudentBalanceDirect() {
+            const code = document.getElementById('targetStudentSelect').value;
+            const amount = parseFloat(document.getElementById('chargeAmount').value);
+
+            let student = studentsDB.find(s => s.code === code);
+            if (student && !isNaN(amount)) {
+                student.balance += amount;
+                
+                if (currentStudent && currentStudent.code === student.code) {
+                    currentStudent.balance = student.balance;
+                }
+
+                showToast(`تم شحن ${amount} ج.م لطالب (${student.name}) بنجاح!`);
+                document.getElementById('chargeAmount').value = "";
+                
+                updateStudentUI();
+                updateAdminStudentsTable();
+                saveAllDataToStorage();
+            } else {
+                showToast("يرجى اختيار طالب والمبلغ بشكل صحيح!", "error");
+            }
+        }
+
+        function toggleStudentBan(code) {
+            let student = studentsDB.find(s => s.code === code);
+            if (student) {
+                student.isBanned = !student.isBanned;
+                updateAdminStudentsTable();
+                saveAllDataToStorage();
+                showToast(student.isBanned ? `تم حظـر الطالب ${student.name}` : `تم إلغاء حظر الطالب ${student.name}`, "info");
+            }
+        }
+
+        function deleteStudent(code) {
+            studentsDB = studentsDB.filter(s => s.code !== code);
+            updateAdminStudentsTable();
+            updateAdminStats();
+            saveAllDataToStorage();
+            showToast("تم حذف الطالب بنجاح", "info");
+        }
+
+        // فتح نافذة تعديل بيانات الطالب من قِبل الأدمن
+        function openEditStudentModal(code) {
+            let student = studentsDB.find(s => s.code === code);
+            if (student) {
+                document.getElementById('editStudentOriginalCode').value = student.code;
+                document.getElementById('editStudentCode').value = student.code;
+                document.getElementById('editStudentName').value = student.name;
+                document.getElementById('editStudentEmail').value = student.email || '';
+                document.getElementById('editStudentPhone').value = student.phone || '';
+                document.getElementById('editStudentParentPhone').value = student.parentPhone || '';
+                document.getElementById('editStudentPassword').value = student.password || '';
+                
+                document.getElementById('editStudentModal').style.display = 'flex';
+            }
+        }
+
+        function closeEditStudentModal() {
+            document.getElementById('editStudentModal').style.display = 'none';
+        }
+
+        function saveEditedStudentData() {
+            let origCode = document.getElementById('editStudentOriginalCode').value;
+            let student = studentsDB.find(s => s.code === origCode);
+
+            if (student) {
+                student.code = document.getElementById('editStudentCode').value.trim().toUpperCase();
+                student.name = document.getElementById('editStudentName').value.trim();
+                student.email = document.getElementById('editStudentEmail').value.trim();
+                student.phone = document.getElementById('editStudentPhone').value.trim();
+                student.parentPhone = document.getElementById('editStudentParentPhone').value.trim();
+                student.password = document.getElementById('editStudentPassword').value.trim();
+
+                if (currentStudent && currentStudent.code === origCode) {
+                    currentStudent = student;
+                    updateStudentUI();
+                }
+
+                closeEditStudentModal();
+                updateAdminStudentsTable();
+                saveAllDataToStorage();
+                showToast("تم تحديث بيانات الطالب بنجاح! ✨");
+            }
+        }
+
+        function updateAdminStudentsTable() {
+            const tbody = document.getElementById('adminStudentsList');
+            const select = document.getElementById('targetStudentSelect');
+            
+            select.innerHTML = '<option value="">اختر طالباً للشحن المباشر...</option>';
+
+            if (studentsDB.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">لا يوجد طلاب مسجلين بعد</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = "";
+            studentsDB.forEach(s => {
+                select.innerHTML += `<option value="${s.code}">${s.name} (كود: ${s.code})</option>`;
+
+                let banBtnText = s.isBanned ? 'إلغاء الحظر' : 'حظر';
+                let banBtnBg = s.isBanned ? '#10b981' : '#ef4444';
+                let banStatus = s.isBanned ? '<b style="color:#ef4444;">محظور</b>' : '<b style="color:#10b981;">نشط</b>';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>${s.code}</b></td>
+                        <td>${s.name}</td>
+                        <td>${gradeNames[s.grade] || 'غير محدد'}</td>
+                        <td>${s.phone || '-'}</td>
+                        <td>${s.parentPhone || '-'}</td>
+                        <td>${s.email || '-'}</td>
+                        <td style="color: #10b981; font-weight: bold;">${s.balance} ج.م</td>
+                        <td>${banStatus}</td>
+                        <td style="display: flex; gap: 4px; flex-wrap: wrap;">
+                            <button style="background: #0284c7; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;" onclick="openEditStudentModal('${s.code}')">تعديل ✏️</button>
+                            <button style="background: ${banBtnBg}; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;" onclick="toggleStudentBan('${s.code}')">${banBtnText}</button>
+                            <button style="background: #dc2626; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;" onclick="deleteStudent('${s.code}')">حذف 🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderLectures() {
+            const container = document.getElementById('lecturesContainer');
+            
+            let availableLectures = lecturesDB.filter(lec => {
+                if (isAdmin) return true;
+                if (!lec.active) return false;
+                if (isGuest) return lec.grade === 'all';
+                return lec.grade === 'all' || lec.grade === currentStudent.grade;
+            });
+
+            if (availableLectures.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">لا توجد محاضرات متاحة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            availableLectures.forEach(lec => {
+                let isUnlocked = isAdmin || (currentStudent && currentStudent.unlockedLecs.includes(lec.id));
+                let btnText = isUnlocked ? 'مشاهدة المحاضرة <i class="fa-solid fa-play"></i>' : `شراء بـ ${lec.price} ج.م <i class="fa-solid fa-credit-card"></i>`;
+                let btnAction = isUnlocked ? `playSound(); openVideoModal(${lec.id})` : `playSound(); buyLecture(${lec.id}, ${lec.price})`;
+
+                container.innerHTML += `
+                    <div class="card-item glass-box">
+                        <div>
+                            <img src="${lec.thumb}" class="card-thumb" alt="صورة المحاضرة">
+                            <h3>${lec.title}</h3>
+                            <p>${lec.desc || "لا يوجد وصف إضافي."}</p>
+                            <p style="font-size: 0.95rem; color: var(--accent-cyan); font-weight: bold;">السعر: ${lec.price} جنيه مصري</p>
+                        </div>
+                        <button class="btn-card" onclick="${btnAction}">${btnText}</button>
+                    </div>
+                `;
+            });
+        }
+
+        function renderExams() {
+            const container = document.getElementById('examsContainer');
+            
+            let availableExams = examsDB.filter(ex => {
+                if (isAdmin) return true;
+                return ex.active;
+            });
+
+            if (availableExams.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">لا توجد امتحانات متاحة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            availableExams.forEach((exam) => {
+                let statusBadge = exam.active ? '<span style="color: #10b981; font-weight: bold;">● متاح الآن</span>' : '<span style="color: #ef4444; font-weight: bold;">● مغلق حالياً</span>';
+                
+                let studentActionBtn = '';
+                if (exam.active) {
+                    studentActionBtn = `<button class="btn-card" onclick="playSound(); startExamSession(${exam.id})">بدء الاختبار <i class="fa-solid fa-bolt"></i></button>`;
+                } else {
+                    studentActionBtn = `<button class="btn-card" style="background: #64748b; cursor: not-allowed;" disabled>الاختبار مغلق 🔒</button>`;
+                }
+
+                container.innerHTML += `
+                    <div class="card-item glass-box">
+                        <div>
+                            <h3>📝 ${exam.title}</h3>
+                            <p>عدد الأسئلة: <b>${exam.questions.length}</b> أسئلة</p>
+                            <p>الوقت المخصص: <b>${exam.timeMin}</b> دقائق</p>
+                            <p style="margin-top: 8px;">الحالة: ${statusBadge}</p>
+                        </div>
+                        ${studentActionBtn}
+                    </div>
+                `;
+            });
+        }
+
+        function renderHomework() {
+            const container = document.getElementById('homeworkContainer');
+            
+            let filteredHW = homeworkDB.filter(hw => {
+                if (isAdmin) return true;
+                if (!hw.active) return false;
+                if (isGuest) return hw.grade === 'all';
+                return hw.grade === 'all' || hw.grade === currentStudent.grade;
+            });
+
+            if (filteredHW.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">لا توجد واجبات متاحة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = "";
+            filteredHW.forEach(hw => {
+                container.innerHTML += `
+                    <div class="card-item glass-box">
+                        <div>
+                            <h3>📌 ${hw.title}</h3>
+                            <p style="margin-top: 0.5rem; color: var(--text-muted);">${hw.desc}</p>
+                            <span style="font-size: 0.8rem; background: rgba(2,132,199,0.1); color: var(--accent-cyan); padding: 4px 8px; border-radius: 6px; font-weight: bold;">الصف: ${gradeNames[hw.grade] || 'الجميع'}</span>
+                        </div>
+                        <button class="btn-card" style="background: #7c3aed;" onclick="playSound(); submitHomeworkPrompt('${hw.title}')">تسليم الإجابة <i class="fa-solid fa-upload"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function submitHomeworkPrompt(hwTitle) {
+            if (isGuest) {
+                showToast("الزائر لا يمكنه تسليم الواجبات!", "error");
+                return;
+            }
+            let answer = prompt(`أدخل إجابتك أو رابط ملف الواجب الخاص بـ (${hwTitle}):`);
+            if (answer) {
+                showToast("تم استلام إجابة الواجب بنجاح! 🎉");
+            }
+        }
+
+        function startExamSession(examId) {
+            if (isGuest) {
+                showToast("الزائر لا يمكنه دخول الامتحانات!", "error");
+                document.getElementById('mainPlatform').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                return;
+            }
+
+            activeExam = examsDB.find(e => e.id === examId);
+            if (!activeExam || !activeExam.active) {
+                showToast("هذا الاختبار مغلق حالياً.", "error");
+                return;
+            }
+
+            currentQIndex = 0;
+            studentAnswers = {};
+            timeRemainingSeconds = activeExam.timeMin * 60;
+
+            document.getElementById('mainPlatform').style.display = 'none';
+            document.getElementById('examSessionPage').style.display = 'block';
+            document.getElementById('sessionExamTitle').innerText = activeExam.title;
+            document.getElementById('totalQNum').innerText = activeExam.questions.length;
+
+            loadQuestionIntoSession();
+            startExamTimer();
+            showToast("بدء الاختبار بالتوفيق!...", "info");
+        }
+
+        function startExamTimer() {
+            clearInterval(examTimerInterval);
+            examTimerInterval = setInterval(() => {
+                if (timeRemainingSeconds <= 0) {
+                    clearInterval(examTimerInterval);
+                    showToast("انتهى وقت الامتحان!", "error");
+                    confirmAndSubmitExam();
+                } else {
+                    timeRemainingSeconds--;
+                    let min = Math.floor(timeRemainingSeconds / 60);
+                    let sec = timeRemainingSeconds % 60;
+                    document.getElementById('timerDisplay').innerText = 
+                        (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
+                }
+            }, 1000);
+        }
+
+        function loadQuestionIntoSession() {
+            let qData = activeExam.questions[currentQIndex];
+            document.getElementById('currentQNum').innerText = currentQIndex + 1;
+            document.getElementById('sessionQText').innerText = qData.q;
+
+            let letters = ['أ', 'ب', 'ج', 'د'];
+            let optsHtml = "";
+            qData.opts.forEach((opt, idx) => {
+                let isSelected = studentAnswers[currentQIndex] === opt ? "selected" : "";
+                let letter = letters[idx] || '';
+                
+                optsHtml += `
+                    <button class="exam-option-btn ${isSelected}" onclick="playSound(); selectExamOption('${opt}')">
+                        <div class="exam-option-content">
+                            <span class="option-letter">${letter}</span>
+                            <span>${opt}</span>
+                        </div>
+                        <div class="radio-circle"></div>
+                    </button>
+                `;
+            });
+
+            document.getElementById('sessionOptionsContainer').innerHTML = optsHtml;
+
+            let nextBtn = document.getElementById('nextBtn');
+            if (currentQIndex === activeExam.questions.length - 1) {
+                nextBtn.innerHTML = 'تسليم الامتحان <i class="fa-solid fa-check"></i>';
+            } else {
+                nextBtn.innerHTML = 'التالي <i class="fa-solid fa-arrow-left"></i>';
+            }
+        }
+
+        function selectExamOption(optText) {
+            studentAnswers[currentQIndex] = optText;
+            loadQuestionIntoSession();
+        }
+
+        function handleExamNextOrSubmit() {
+            if (currentQIndex < activeExam.questions.length - 1) {
+                currentQIndex++;
+                loadQuestionIntoSession();
+            } else {
+                openConfirmSubmitModal();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQIndex > 0) {
+                currentQIndex--;
+                loadQuestionIntoSession();
+            }
+        }
+
+        function openConfirmSubmitModal() {
+            document.getElementById('confirmSubmitModal').style.display = 'flex';
+        }
+
+        function closeConfirmSubmitModal() {
+            document.getElementById('confirmSubmitModal').style.display = 'none';
+        }
+
+        function confirmAndSubmitExam() {
+            closeConfirmSubmitModal();
+            clearInterval(examTimerInterval);
+            let score = 0;
+            activeExam.questions.forEach((q, idx) => {
+                if (studentAnswers[idx] && studentAnswers[idx].trim() === q.ans.trim()) {
+                    score++;
+                }
+            });
+
+            showToast(`ممتاز! درجتك في الامتحان: ${score} من ${activeExam.questions.length}`);
+            
+            document.getElementById('examSessionPage').style.display = 'none';
+            document.getElementById('mainPlatform').style.display = 'block';
+        }
+
+        function buyLecture(lecId, price) {
+            if (isGuest) {
+                showToast("الزائر لا يمكنه شراء المحاضرات!", "error");
+                document.getElementById('mainPlatform').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                return;
+            }
+
+            if (currentStudent.balance >= price) {
+                currentStudent.balance -= price;
+                currentStudent.unlockedLecs.push(lecId);
+                totalPlatformRevenue += price;
+                updateStudentUI();
+                renderLectures();
+                updateAdminStats();
+                saveAllDataToStorage();
+                showToast("تم شراء المحاضرة بنجاح 🎉");
+            } else {
+                showToast("رصيدك غير كافٍ! افتح الإعدادات لشحن كود الرصيد 💰", "error");
+            }
+        }
+
+        function openSettingsModal() {
+            if (isGuest) {
+                showToast("الزائر لا يملك إعدادات للحساب!", "error");
+                return;
+            }
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').style.display = 'none';
+            document.getElementById('studentRechargeCodeInput').value = "";
+            document.getElementById('newStudentPhoneInput').value = "";
+        }
+
+        function updateStudentPhone() {
+            const newPhone = document.getElementById('newStudentPhoneInput').value.trim();
+            if (!newPhone || isNaN(newPhone)) {
+                showToast("يرجى إدخال رقم هاتف صحيح!", "error");
+                return;
+            }
+
+            currentStudent.phone = newPhone;
+            closeSettingsModal();
+            saveAllDataToStorage();
+            showToast("🔑 تم تغيير رقم الهاتف بنجاح!");
+            updateAdminStudentsTable();
+        }
+
+        function openVideoModal(lecId) {
+            let lec = lecturesDB.find(l => l.id === lecId);
+            if (lec) {
+                document.getElementById('modalTitle').innerText = lec.title;
+                const iframe = document.getElementById('youtubeIframe');
+
+                if (lec.video) {
+                    iframe.src = `https://www.youtube.com/embed/${lec.video}?autoplay=1&enablejsapi=1`;
+                } else {
+                    iframe.src = "";
+                }
+
+                document.getElementById('videoModal').style.display = 'flex';
+                showToast("جاري تشغيل الفيديو داخل المنصة...", "info");
+            }
+        }
+
+        function closeVideoModal() {
+            const iframe = document.getElementById('youtubeIframe');
+            iframe.src = "";
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
+        window.onload = function() {
+            loadAllDataFromStorage();
+        };
+    </script>
+</body>
+</html>

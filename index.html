@@ -2,10 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة النخبة التعليمية الذكية - التوليد الذكي الدقيق</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>أكاديمية بدر التعليمية الذكية - النسخة المحمية والمتقدمة</title>
     
-    <!-- خط Tajawal & Cairo -->
+    <!-- خطوط Tajawal و Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,13 +17,12 @@
             --accent-purple: #7c3aed;
             --accent-pink: #db2777;
             --bg-main: #f0f5ff;
-            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg: rgba(255, 255, 255, 0.94);
             --text-main: #0f172a;
             --text-muted: #475569;
             --header-bg: rgba(255, 255, 255, 0.96);
             --border-color: rgba(99, 102, 241, 0.18);
             --glow-color: rgba(2, 132, 199, 0.2);
-            --eye-filter: opacity(1);
         }
 
         body.dark-mode {
@@ -32,22 +31,12 @@
             --accent-purple: #a855f7;
             --accent-pink: #ec4899;
             --bg-main: #0b0f19;        
-            --card-bg: rgba(17, 24, 39, 0.88);         
+            --card-bg: rgba(17, 24, 39, 0.92);         
             --text-main: #f8fafc;       
             --text-muted: #94a3b8;      
-            --header-bg: rgba(15, 23, 42, 0.92);
+            --header-bg: rgba(15, 23, 42, 0.94);
             --border-color: rgba(255, 255, 255, 0.15);
             --glow-color: rgba(59, 130, 246, 0.35);
-        }
-
-        body.eye-mode {
-            --eye-filter: sepia(0.35) hue-rotate(-15deg) contrast(0.95);
-        }
-
-        @keyframes softColorFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         * {
@@ -56,30 +45,36 @@
             padding: 0;
             font-family: 'Cairo', 'Tajawal', sans-serif;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background: linear-gradient(-45deg, #e0f2fe, #f0f5ff, #f3e8ff, #fce7f3);
             background-size: 400% 400%;
-            animation: softColorFlow 15s ease infinite;
+            animation: superFlowSmooth 15s ease infinite;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             line-height: 1.6;
-            filter: var(--eye-filter);
             background-attachment: fixed;
-            user-select: none;
+            overflow-x: hidden;
+        }
+
+        @keyframes superFlowSmooth {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body.dark-mode {
             background: linear-gradient(-45deg, #0b0f19, #111827, #1e1b4b, #31103c);
             background-size: 400% 400%;
-            animation: softColorFlow 15s ease infinite;
+            animation: superFlowSmooth 15s ease infinite;
         }
 
         .glass-box {
@@ -130,7 +125,7 @@
         }
 
         #announcementBar {
-            display: block;
+            display: none;
             background: var(--primary-gradient);
             color: white;
             text-align: center;
@@ -142,664 +137,187 @@
 
         #loginScreen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 20px;
-            overflow-y: auto;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; padding: 20px; overflow-y: auto;
         }
 
         .login-card {
-            padding: 2.5rem;
-            border-radius: 28px;
-            max-width: 440px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem; border-radius: 28px; max-width: 440px; width: 100%; text-align: center;
+            border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
         .tabs-header {
-            display: flex;
-            margin-bottom: 1.8rem;
-            border-bottom: 2px solid var(--border-color);
-            gap: 8px;
+            display: flex; margin-bottom: 1.8rem; border-bottom: 2px solid var(--border-color); gap: 8px;
         }
 
         .tab-btn {
-            flex: 1;
-            padding: 0.8rem;
-            background: none;
-            border: none;
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-radius: 12px 12px 0 0;
+            flex: 1; padding: 0.8rem; background: none; border: none; font-weight: 800; font-size: 0.95rem;
+            color: var(--text-muted); cursor: pointer; border-radius: 12px 12px 0 0;
         }
 
         .tab-btn.active {
-            color: var(--text-main);
-            background: rgba(2, 132, 199, 0.15);
-            border-bottom: 3px solid var(--accent-cyan);
+            color: var(--text-main); background: rgba(2, 132, 199, 0.15); border-bottom: 3px solid var(--accent-cyan);
         }
 
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
 
         .login-input, .login-select {
-            width: 100%;
-            padding: 0.95rem 1.2rem;
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--text-main);
-            border-radius: 14px;
-            margin-bottom: 1.1rem;
-            font-size: 0.95rem;
-            outline: none;
+            width: 100%; padding: 0.95rem 1.2rem; border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.8); color: var(--text-main); border-radius: 14px;
+            margin-bottom: 1.1rem; font-size: 0.95rem; outline: none;
         }
 
-        body.dark-mode .login-input, body.dark-mode .login-select {
-            background: rgba(15, 23, 42, 0.6);
-        }
-
-        .login-input:focus, .login-select:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-        }
+        body.dark-mode .login-input, body.dark-mode .login-select { background: rgba(15, 23, 42, 0.6); }
 
         .btn-main-login {
-            width: 100%;
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 1rem;
-            font-size: 1.1rem;
-            font-weight: 800;
-            border-radius: 14px;
-            cursor: pointer;
-            margin-bottom: 0.9rem;
+            width: 100%; background: var(--primary-gradient); color: white; border: none; padding: 1rem;
+            font-size: 1.1rem; font-weight: 800; border-radius: 14px; cursor: pointer; margin-bottom: 0.9rem;
             box-shadow: 0 8px 20px var(--glow-color);
         }
 
         .btn-guest {
-            width: 100%;
-            background: rgba(148, 163, 184, 0.15);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 0.85rem;
-            font-size: 0.95rem;
-            font-weight: 700;
-            border-radius: 14px;
-            cursor: pointer;
+            width: 100%; background: rgba(148, 163, 184, 0.15); color: var(--text-main); border: 1px solid var(--border-color);
+            padding: 0.85rem; font-size: 0.95rem; font-weight: 700; border-radius: 14px; cursor: pointer;
         }
 
-        #mainPlatform {
-            display: none;
-        }
+        #mainPlatform { display: none; }
 
         header {
-            background: var(--header-bg);
-            backdrop-filter: blur(12px);
-            color: var(--text-main);
-            padding: 1rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: var(--header-bg); backdrop-filter: blur(12px); color: var(--text-main);
+            padding: 1rem 4%; display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 25px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
         .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--primary-gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
-            box-shadow: 0 0 15px var(--glow-color);
+            width: 42px; height: 42px; background: var(--primary-gradient); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; box-shadow: 0 0 15px var(--glow-color);
         }
+        .logo span { background: linear-gradient(90deg, #0284c7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .logo span {
-            background: linear-gradient(90deg, #0284c7, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        .header-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
         .top-left-nav-panel {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(2, 132, 199, 0.08);
-            padding: 6px 12px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 8px; background: rgba(2, 132, 199, 0.08); padding: 6px 12px; border-radius: 16px; border: 1px solid var(--border-color);
         }
 
         .mode-badge-btn {
-            background: rgba(2, 132, 199, 0.08);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.45rem 0.95rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background: rgba(2, 132, 199, 0.08); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 0.45rem 0.95rem; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 6px;
         }
 
         .user-badge {
-            background-color: rgba(2, 132, 199, 0.08);
-            padding: 0.4rem 0.8rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            border: 1px solid var(--border-color);
+            background-color: rgba(2, 132, 199, 0.08); padding: 0.4rem 0.8rem; border-radius: 10px; font-size: 0.8rem; font-weight: 700; border: 1px solid var(--border-color);
         }
 
         .btn-admin-nav {
-            background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
+            display: none; background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%); color: white; border: none;
+            padding: 0.5rem 1rem; border-radius: 10px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
         }
 
         .nav-tabs-platform {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.2rem;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.4);
-            flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 1rem; padding: 1.2rem; border-bottom: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.4); flex-wrap: wrap;
         }
-
-        body.dark-mode .nav-tabs-platform {
-            background: rgba(15, 23, 42, 0.4);
-        }
+        body.dark-mode .nav-tabs-platform { background: rgba(15, 23, 42, 0.4); }
 
         .platform-tab-btn {
-            padding: 0.75rem 2.2rem;
-            border-radius: 50px;
-            border: 2px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.5);
-            color: var(--text-main);
-            font-weight: 800;
-            cursor: pointer;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 0.75rem 2.2rem; border-radius: 50px; border: 2px solid var(--border-color); background: rgba(255, 255, 255, 0.5);
+            color: var(--text-main); font-weight: 800; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;
         }
-
         .platform-tab-btn.active, .platform-tab-btn:hover {
-            background: var(--primary-gradient);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 6px 20px var(--glow-color);
+            background: var(--primary-gradient); color: white; border-color: transparent; box-shadow: 0 6px 20px var(--glow-color);
         }
 
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 2.5rem 1.2rem;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 2rem;
-        }
+        .container { max-width: 1250px; margin: 0 auto; padding: 2.5rem 1.2rem; }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 2rem; }
 
         .card-item {
-            border-radius: 24px;
-            padding: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            position: relative;
+            border-radius: 24px; padding: 1.8rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 1px solid var(--border-color); position: relative;
         }
-
         .card-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary-gradient);
-            opacity: 0.8;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--primary-gradient); opacity: 0.8;
         }
-
-        .card-thumb {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 1.2rem;
-            background: #1e293b;
-        }
+        .card-thumb { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 1.2rem; background: #1e293b; }
 
         .btn-card {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 0.85rem;
-            border-radius: 14px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            width: 100%;
-            margin-top: 0.8rem;
-            box-shadow: 0 6px 18px var(--glow-color);
-            font-size: 0.95rem;
+            background: var(--primary-gradient); color: white; padding: 0.85rem; border-radius: 14px; font-weight: 800; border: none; cursor: pointer; text-align: center; width: 100%; margin-top: 0.8rem; box-shadow: 0 6px 18px var(--glow-color); font-size: 0.95rem;
         }
 
         .progress-circle-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            background: rgba(2, 132, 199, 0.05);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 22px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: flex; align-items: center; justify-content: space-around; background: rgba(2, 132, 199, 0.05); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 22px; margin-bottom: 2rem; flex-wrap: wrap; gap: 15px;
         }
 
         .circular-progress {
-            position: relative;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: conic-gradient(#0284c7 0deg, rgba(200,200,200,0.2) 0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px var(--glow-color);
+            position: relative; width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(#0284c7 0deg, rgba(200,200,200,0.2) 0deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px var(--glow-color);
         }
-
         .circular-progress::before {
-            content: "";
-            position: absolute;
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            background: var(--card-bg);
+            content: ""; position: absolute; width: 86px; height: 86px; border-radius: 50%; background: var(--card-bg);
         }
+        .progress-value { position: relative; font-size: 1.3rem; font-weight: 900; color: var(--accent-cyan); }
 
-        .progress-value {
-            position: relative;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--accent-cyan);
-        }
+        #adminPanelSection { display: none; }
 
-        #adminPage {
-            display: none;
-            min-height: 100vh;
-        }
-
-        .admin-header-bar {
-            background: var(--header-bg);
-            color: var(--text-main);
-            padding: 1.2rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .admin-nav-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            min-width: 140px;
-        }
-
-        .btn-admin-action-top {
-            padding: 0.55rem 1.3rem;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-        }
-
-        .admin-container {
-            max-width: 1150px;
-            margin: 0 auto;
-            padding: 2.5rem 1rem;
-        }
-
-        .admin-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 1.4rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            padding: 1.6rem;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-card h4 {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-        }
-
+        .admin-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.4rem; margin-bottom: 2rem; }
+        .stat-card { padding: 1.6rem; border-radius: 20px; text-align: center; border: 1px solid var(--border-color); }
+        .stat-card h4 { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.4rem; }
         .stat-card .number {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #0284c7, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2rem; font-weight: 900; background: linear-gradient(90deg, #0284c7, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .admin-card {
-            padding: 2rem;
-            border-radius: 24px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .admin-card h3 {
-            color: var(--accent-cyan);
-            margin-bottom: 1.2rem;
-            font-size: 1.3rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.6rem;
-            font-weight: 800;
-        }
+        .admin-card { padding: 2rem; border-radius: 24px; margin-bottom: 2rem; border: 1px solid var(--border-color); }
+        .admin-card h3 { color: var(--accent-cyan); margin-bottom: 1.2rem; font-size: 1.3rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.6rem; font-weight: 800; }
 
         .admin-input, .admin-select, .admin-textarea {
-            width: 100%;
-            padding: 0.95rem 1.1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            margin-bottom: 1.1rem;
-            font-size: 0.95rem;
-            outline: none;
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--text-main);
+            width: 100%; padding: 0.95rem 1.1rem; border: 1px solid var(--border-color); border-radius: 14px; margin-bottom: 1.1rem; font-size: 0.95rem; outline: none; background: rgba(255, 255, 255, 0.8); color: var(--text-main);
         }
+        body.dark-mode .admin-input, body.dark-mode .admin-select { background: rgba(15, 23, 42, 0.6); }
 
-        body.dark-mode .admin-input, body.dark-mode .admin-select, body.dark-mode .admin-textarea {
-            background: rgba(15, 23, 42, 0.6);
-        }
+        .students-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        .students-table th, .students-table td { padding: 1rem; border-bottom: 1px solid var(--border-color); text-align: right; color: var(--text-main); }
+        .students-table th { background: rgba(2, 132, 199, 0.12); color: var(--accent-cyan); font-weight: 800; }
 
-        .students-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
+        #examSessionPage { display: none; min-height: 100vh; padding: 1.5rem 3%; }
+        .exam-session-box { max-width: 800px; margin: 0 auto; padding: 2rem; border-radius: 28px; border: 1px solid var(--border-color); }
+        .exam-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem; }
+        .timer-badge { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); padding: 0.6rem 1.2rem; border-radius: 14px; font-weight: 800; font-size: 1.1rem; border: 1px solid rgba(6, 182, 212, 0.3); }
 
-        .students-table th, .students-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            text-align: right;
-            color: var(--text-main);
-        }
-
-        .students-table th {
-            background: rgba(2, 132, 199, 0.12);
-            color: var(--accent-cyan);
-            font-weight: 800;
-        }
-
-        #examSessionPage {
-            display: none;
-            min-height: 100vh;
-            padding: 3rem 5%;
-        }
-
-        .exam-session-box {
-            max-width: 880px;
-            margin: 0 auto;
-            padding: 2.5rem;
-            border-radius: 28px;
-            border: 1px solid var(--border-color);
-        }
-
-        .exam-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.8rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 1.2rem;
-        }
-
-        .timer-badge {
-            background: rgba(6, 182, 212, 0.15);
-            color: var(--accent-cyan);
-            padding: 0.6rem 1.2rem;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            border: 1px solid rgba(6, 182, 212, 0.3);
+        .question-text-style {
+            color: var(--text-main); margin-bottom: 1.8rem; font-weight: 800; font-size: 1.25rem; line-height: 1.7; padding: 10px; background: rgba(2, 132, 199, 0.03); border-radius: 16px; border-right: 4px solid var(--accent-cyan);
         }
 
         .exam-option-btn {
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid var(--border-color);
-            color: var(--text-main);
-            padding: 1.1rem 1.3rem;
-            border-radius: 16px;
-            font-size: 1.05rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 14px;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.8); border: 2px solid var(--border-color); color: var(--text-main); padding: 1.1rem 1.3rem; border-radius: 16px; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 14px; font-weight: 700;
         }
-
-        body.dark-mode .exam-option-btn {
-            background: rgba(15, 23, 42, 0.4);
-        }
-
-        .exam-option-content {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .option-letter {
-            font-weight: 900;
-            color: var(--accent-cyan);
-            width: 30px;
-            height: 30px;
-            background: rgba(6, 182, 212, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .radio-circle {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--text-muted);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .exam-option-btn.selected {
-            border-color: var(--accent-cyan);
-            background: rgba(6, 182, 212, 0.15);
-        }
-
-        .exam-option-btn.selected .radio-circle {
-            border-color: var(--accent-cyan);
-            background-color: var(--accent-cyan);
-        }
-
-        .exam-nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            gap: 15px;
-        }
+        body.dark-mode .exam-option-btn { background: rgba(15, 23, 42, 0.4); }
+        .exam-option-content { display: flex; align-items: center; gap: 14px; }
+        .option-letter { font-weight: 900; color: var(--accent-cyan); width: 32px; height: 32px; background: rgba(6, 182, 212, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .radio-circle { width: 24px; height: 24px; border: 2px solid var(--text-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .exam-option-btn.selected { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.15); }
+        .exam-option-btn.selected .radio-circle { border-color: var(--accent-cyan); background-color: var(--accent-cyan); }
+        .exam-nav-buttons { display: flex; justify-content: space-between; margin-top: 2rem; gap: 15px; }
 
         .admin-pass-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(8px);
-            z-index: 10001;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); z-index: 10001; justify-content: center; align-items: center; padding: 15px;
         }
-
-        .admin-pass-box {
-            padding: 2.5rem;
-            border-radius: 28px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
+        .admin-pass-box { padding: 2.5rem; border-radius: 28px; max-width: 420px; width: 100%; text-align: center; border: 1px solid var(--border-color); }
 
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; justify-content: center; align-items: center; padding: 15px;
         }
+        .modal-box-large { padding: 1.8rem; border-radius: 28px; width: 100%; max-width: 95vw; height: 94vh; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-color); }
 
-        .modal-box-large {
-            padding: 1.8rem;
-            border-radius: 28px;
-            width: 100%;
-            max-width: 95vw;
-            height: 94vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid var(--border-color);
-        }
+        .video-responsive { position: relative; width: 100%; flex-grow: 1; overflow: hidden; border-radius: 20px; background: #000; }
+        .video-responsive iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        .video-responsive {
-            position: relative;
-            width: 100%;
-            flex-grow: 1;
-            overflow: hidden;
-            border-radius: 20px;
-            background: #000;
-        }
+        footer { background: var(--header-bg); color: var(--text-muted); text-align: center; padding: 2.2rem; margin-top: auto; font-size: 0.95rem; border-top: 1px solid var(--border-color); }
 
-        .video-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        footer {
-            background: var(--header-bg);
-            color: var(--text-muted);
-            text-align: center;
-            padding: 2.2rem;
-            margin-top: auto;
-            font-size: 0.95rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        body.focus-mode header,
-        body.focus-mode footer,
-        body.focus-mode .nav-tabs-platform,
-        body.focus-mode #announcementBar {
-            display: none !important;
-        }
-
-        .focus-toggle-btn {
-            background: linear-gradient(90deg, #10b981, #059669);
-            color: white;
-            padding: 0.45rem 0.95rem;
-            border-radius: 50px;
-            border: none;
-            font-weight: 800;
-            font-size: 0.85rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
+        body.focus-mode header, body.focus-mode footer, body.focus-mode .nav-tabs-platform, body.focus-mode #announcementBar { display: none !important; }
+        .focus-toggle-btn { background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 0.45rem 0.95rem; border-radius: 50px; border: none; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
     <div id="toastContainer"></div>
 
@@ -809,7 +327,7 @@
             <div class="logo-icon" style="margin: 0 auto 1rem; width: 60px; height: 60px; font-size: 1.8rem;">
                 <i class="fa-solid fa-graduation-cap"></i>
             </div>
-            <h2 style="background: linear-gradient(90deg, #0284c7, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; font-size: 1.9rem; font-weight: 900;">منصة النخبة الذكية</h2>
+            <h2 style="background: linear-gradient(90deg, #0284c7, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; font-size: 1.9rem; font-weight: 900;">أكاديمية بدر</h2>
             
             <div class="tabs-header">
                 <button class="tab-btn active" id="registerTabBtn" onclick="playSound(); switchAuthTab('register')">إنشاء حساب</button>
@@ -825,21 +343,20 @@
                 
                 <select id="regGrade" class="login-select" required>
                     <option value="" disabled selected>اختر صفك الدراسي 📚</option>
-                    <option value="4prim">الصف الرابع الابتدائي (الترم الأول)</option>
-                    <option value="6prim">الصف السادس الابتدائي (الترم الأول)</option>
-                    <option value="1sec">الصف الأول الثانوي (الترم الأول)</option>
-                    <option value="2sec">الصف الثاني الثانوي (الترم الأول)</option>
-                    <option value="3sec">الصف الثالث الثانوي (الترم الأول)</option>
+                    <option value="4prim">الصف الرابع الابتدائي</option>
+                    <option value="6prim">الصف السادس الابتدائي</option>
+                    <option value="1sec">الصف الأول الثانوي</option>
+                    <option value="2sec">الصف الثاني الثانوي</option>
+                    <option value="3sec">الصف الثالث الثانوي</option>
                 </select>
 
                 <input type="password" id="regPassword" class="login-input" placeholder="كلمة المرور الخاصة بك" required>
-
                 <button type="submit" class="btn-main-login" onclick="playSound()">إنشاء حساب جديد <i class="fa-solid fa-rocket mr-1"></i></button>
             </form>
 
             <!-- نموذج تسجيل الدخول -->
             <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
-                <input type="text" id="loginCode" class="login-input" placeholder="كود الطالب الشخصي (مثال: A101)" required>
+                <input type="text" id="loginCode" class="login-input" placeholder="كود الطالب أو البريد" required>
                 <input type="password" id="loginPassword" class="login-input" placeholder="كلمة المرور" required>
                 <button type="submit" class="btn-main-login" onclick="playSound()">تسجيل الدخول <i class="fa-solid fa-key mr-1"></i></button>
             </form>
@@ -848,14 +365,14 @@
         </div>
     </div>
 
-    <!-- 2. المنصة الرئيسية للطالب -->
+    <!-- 2. المنصة الرئيسية -->
     <div id="mainPlatform">
-        <div id="announcementBar">📢 مرحباً بكم في منصة النخبة التعليمية الذكية (المنهج المصري - الترم الأول)!</div>
+        <div id="announcementBar">📢 مرحباً بكم في أكاديمية بدر التعليمية الذكية!</div>
 
         <header>
             <div class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div>منصة <span>النخبة</span></div>
+                <div>أكاديمية <span>بدر</span></div>
             </div>
             
             <div class="header-controls">
@@ -870,8 +387,8 @@
                     <button class="mode-badge-btn" onclick="playSound(); openSettingsModal()">
                         <i class="fa-solid fa-gear"></i> الإعدادات
                     </button>
-                    <button class="btn-admin-nav" onclick="playSound(); openAdminPassModal()">
-                        <i class="fa-solid fa-crown"></i> الأدمن
+                    <button class="btn-admin-nav" id="adminNavBtn" onclick="playSound(); toggleAdminPanel()">
+                        <i class="fa-solid fa-crown"></i> <span id="adminBtnText">لوحة الأدمن</span>
                     </button>
                 </div>
 
@@ -879,57 +396,156 @@
                     <div class="user-badge"><span id="myName">زائر</span></div>
                     <div class="user-badge"><span id="myGradeBadge" style="color: #f59e0b;">زائر</span></div>
                     <div class="user-badge">كود: <span id="myCode" style="color: #0284c7; font-weight: bold;">GUEST</span></div>
-                    <div class="user-badge">رصيد: <span id="myBalance" style="color: #10b981; font-weight: bold;">0</span> ج.م</div>
+                    <div class="user-badge" style="display: flex; align-items: center; gap: 5px;">
+                        رصيد: <span id="myBalance" style="color: #10b981; font-weight: bold;">0</span> ج.م
+                        <button onclick="playSound(); toggleBalanceInput()" style="background: #0284c7; color: white; border: none; padding: 2px 6px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;"><i class="fa-solid fa-wallet"></i> شحن رصيد</button>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <div class="nav-tabs-platform">
+        <!-- خانة شحن الرصيد الفوري (مخفية ولا تظهر إلا عند الضغط على زر شحن رصيد) -->
+        <div id="balanceSectionBox" style="display: none; max-width: 500px; margin: 15px auto; padding: 18px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 10px;"><i class="fa-solid fa-credit-card"></i> شحن رصيد الحساب المباشر</h4>
+            <input type="text" id="rechargeCodeInput" class="admin-input" placeholder="أدخل كود الشحن (مثال: BADR-100)">
+            <div style="display: flex; gap: 10px; margin-top: 5px;">
+                <button class="btn-card" style="background: #10b981; margin:0;" onclick="playSound(); applyRechargeCode()">تفعيل الكود ✅</button>
+                <button class="btn-card" style="background: #7c3aed; margin:0;" onclick="playSound(); generateDemoStudentCode()">إنشاء كود شحن تجريبي 🪄</button>
+            </div>
+        </div>
+
+        <div class="nav-tabs-platform" id="platformNavTabs">
             <button class="platform-tab-btn active" id="tabLecs" onclick="playSound(); switchSection('lecs')"><i class="fa-solid fa-book-open"></i> المحاضرات</button>
             <button class="platform-tab-btn" id="tabExams" onclick="playSound(); switchSection('exams')"><i class="fa-solid fa-file-pen"></i> الامتحانات</button>
             <button class="platform-tab-btn" id="tabHomework" onclick="playSound(); switchSection('homework')"><i class="fa-solid fa-clipboard-list"></i> الواجبات</button>
         </div>
 
         <div class="container">
-            <div class="progress-circle-card glass-box">
-                <div style="text-align: right;">
-                    <h3 style="color: var(--accent-cyan); font-weight: 900; margin-bottom: 5px;">مؤشر الإنجاز والتقدم الدراسي 📊</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">معدل مشاهدة المحاضرات واجتياز الامتحانات والنجاح</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="circular-progress" id="circularProgress">
-                        <span class="progress-value" id="progressPercentText">0%</span>
+            <!-- قسم المحتوى العادي للمنصة -->
+            <div id="studentPlatformContent">
+                <div class="progress-circle-card glass-box">
+                    <div style="text-align: right;">
+                        <h3 style="color: var(--accent-cyan); font-weight: 900; margin-bottom: 5px;">مؤشر الإنجاز والتقدم الدراسي 📊</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">معدل مشاهدة المحاضرات واجتياز الامتحانات والنجاح</p>
                     </div>
-                    <div>
-                        <p style="font-size: 0.9rem;">📚 المحاضرات المشاهدة: <b id="watchedLecsCount">0</b></p>
-                        <p style="font-size: 0.9rem;">📝 الامتحانات المُجتازة: <b id="passedExamsCount">0</b></p>
-                        <p style="font-size: 0.9rem;">🏆 حالة التفوق: <b style="color: #10b981;">ممتاز ✨</b></p>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="circular-progress" id="circularProgress">
+                            <span class="progress-value" id="progressPercentText">0%</span>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.9rem;">📚 المحاضرات المشاهدة: <b id="watchedLecsCount">0</b></p>
+                            <p style="font-size: 0.9rem;">📝 الامتحانات المُجتازة: <b id="passedExamsCount">0</b></p>
+                            <p style="font-size: 0.9rem;">🏆 حالة التفوق: <b style="color: #10b981;">ممتاز ✨</b></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sectionLecs">
+                    <div class="grid-cards" id="lecturesContainer">
+                        <p style="text-align: center; color: var(--text-muted);">لا توجد محاضرات مضافة حالياً.</p>
+                    </div>
+                </div>
+
+                <div id="sectionExams" style="display: none;">
+                    <div class="grid-cards" id="examsContainer">
+                        <p style="text-align: center; color: var(--text-muted);">لا توجد امتحانات مضافة حالياً.</p>
+                    </div>
+                </div>
+
+                <div id="sectionHomework" style="display: none;">
+                    <div class="grid-cards" id="homeworkContainer">
+                        <p style="text-align: center; color: var(--text-muted);">لا توجد واجبات مضافة حالياً.</p>
                     </div>
                 </div>
             </div>
 
-            <div id="sectionLecs">
-                <div class="grid-cards" id="lecturesContainer">
-                    <p style="text-align: center; color: var(--text-muted);">لا توجد محاضرات مضافة حالياً.</p>
+            <!-- لوحة تحكم الأدمن المتقدمة -->
+            <div id="adminPanelSection">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem;">
+                    <h2 style="color: var(--text-main); font-size: 1.6rem; font-weight: 900;"><i class="fa-solid fa-crown text-pink-500"></i> لوحة تحكم الأدمن الشاملة 👑</h2>
+                    <button class="btn-card" style="width: auto; background: #ef4444; padding: 0.6rem 1.5rem;" onclick="playSound(); toggleAdminPanel()"><i class="fa-solid fa-arrow-right"></i> العودة للمنصة</button>
                 </div>
-            </div>
 
-            <div id="sectionExams" style="display: none;">
-                <div class="grid-cards" id="examsContainer">
-                    <p style="text-align: center; color: var(--text-muted);">لا توجد امتحانات مضافة حالياً.</p>
+                <div class="admin-stats-grid">
+                    <div class="stat-card glass-box">
+                        <h4>إجمالي الطلاب</h4>
+                        <div class="number" id="statStudentsCount">0</div>
+                    </div>
+                    <div class="stat-card glass-box">
+                        <h4>إجمالي المحاضرات</h4>
+                        <div class="number" id="statLecturesCount">0</div>
+                    </div>
+                    <div class="stat-card glass-box">
+                        <h4>إجمالي الامتحانات</h4>
+                        <div class="number" id="statExamsCount">0</div>
+                    </div>
+                    <div class="stat-card glass-box">
+                        <h4>الإيرادات الكلية</h4>
+                        <div class="number" id="statRevenue">0 ج.م</div>
+                    </div>
                 </div>
-            </div>
 
-            <div id="sectionHomework" style="display: none;">
-                <div class="grid-cards" id="homeworkContainer">
-                    <p style="text-align: center; color: var(--text-muted);">لا توجد واجبات مضافة حالياً.</p>
+                <!-- 🌟 ميزة الأدمن الجديدة: توليد وإدارة أكواد الشحن -->
+                <div class="admin-card glass-box" style="border: 2px solid var(--accent-cyan);">
+                    <h3>🎫 توليد أكواد شحن الأرصدة للطلاب</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="adminCustomCode" class="admin-input" placeholder="الكود (مثال: BADR-500)" style="flex: 2; margin-bottom:0;">
+                        <input type="number" id="adminCodeValue" class="admin-input" placeholder="القيمة (ج.م)" style="flex: 1; margin-bottom:0;" value="100">
+                    </div>
+                    <button class="btn-card" style="background: #10b981; margin-top: 12px;" onclick="playSound(); adminCreateRechargeCode()">توليد وإضافة الكود للنظام ➕</button>
+                    
+                    <h4 style="margin-top: 1rem; color: var(--accent-cyan); font-size: 0.95rem;">الأكواد النشطة الحالية:</h4>
+                    <div id="adminCodesList" style="margin-top: 8px; font-size: 0.9rem; max-height: 120px; overflow-y: auto;">
+                        <p style="color: var(--text-muted);">لا توجد أكواد نشطة حالياً.</p>
+                    </div>
+                </div>
+
+                <!-- إعلانات المنصة -->
+                <div class="admin-card glass-box">
+                    <h3>📢 نشر تنبيه / إعلان أعلى المنصة للطلاب</h3>
+                    <input type="text" id="adminNoticeInput" class="admin-input" placeholder="اكتب نص الإعلان الذي سيظهر لجميع الطلاب...">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn-card" style="background: #10b981; flex: 1;" onclick="playSound(); publishNotice()">تفعيل وبث الإعلان</button>
+                        <button class="btn-card" style="background: #ef4444; flex: 1;" onclick="playSound(); removeNotice()">إخفاء الإعلان</button>
+                    </div>
+                </div>
+
+                <!-- إدارة الطلاب وشحن الأرصدة المباشر -->
+                <div class="admin-card glass-box">
+                    <h3>👥 إدارة الطلاب المسجلين وشحن الأرصدة الفورية</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <select id="targetStudentSelect" class="admin-select" style="flex: 2;">
+                            <option value="">اختر طالباً للشحن المباشر...</option>
+                        </select>
+                        <input type="number" id="chargeAmount" class="admin-input" placeholder="المبلغ (ج.م)" style="flex: 1;">
+                    </div>
+                    <button class="btn-card" onclick="playSound(); chargeStudentBalanceDirect()">شحن رصيد مباشر للطالب 💳</button>
+
+                    <h4 style="margin-top: 1.8rem; color: var(--accent-cyan);">قائمة الطلاب المسجلين في المنصة:</h4>
+                    <div style="overflow-x: auto;">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>الكود</th>
+                                    <th>الاسم</th>
+                                    <th>الصف</th>
+                                    <th>الهاتف</th>
+                                    <th>الرصيد</th>
+                                    <th>تحكم</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminStudentsList">
+                                <tr><td colspan="6" style="text-align:center;">لا يوجد طلاب مسجلين</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p>جميع الحقوق محفوظة © 2026 - منصة النخبة التعليمية الذكية</p>
-            <p style="font-size: 0.85rem; margin-top: 0.4rem; color: var(--accent-cyan);">لشحن الرصيد تواصل مع معلمك للحصول على كود الشحن الفوري</p>
+            <p>جميع الحقوق محفوظة © 2026 - أكاديمية بدر التعليمية الذكية</p>
+            <p style="font-size: 0.85rem; margin-top: 0.4rem; color: var(--accent-cyan);">لوحة التحكم الخاصة بالمسؤول العام</p>
         </footer>
     </div>
 
@@ -945,8 +561,7 @@
                 السؤال (<span id="currentQNum">1</span>) من (<span id="totalQNum">1</span>)
             </div>
 
-            <h2 id="sessionQText" style="color: var(--text-main); margin-bottom: 1.8rem; font-weight: 800; font-size: 1.35rem;">نص السؤال هنا...</h2>
-
+            <h2 id="sessionQText" class="question-text-style">نص السؤال هنا...</h2>
             <div id="sessionOptionsContainer"></div>
 
             <div class="exam-nav-buttons">
@@ -956,271 +571,32 @@
         </div>
     </div>
 
-    <!-- 4. صفحة لوحة تحكم الأدمن -->
-    <div id="adminPage">
-        <div class="admin-header-bar">
-            <h2 style="color: var(--text-main); font-size: 1.3rem; font-weight: 900;"><i class="fa-solid fa-crown text-pink-500"></i> لوحة تحكم الأدمن الشاملة</h2>
-            <div class="admin-nav-actions">
-                <button class="btn-admin-action-top" style="background-color: #ef4444; color: white;" onclick="playSound(); saveAndExitAdmin()"><i class="fa-solid fa-door-open"></i> حفظ وخروج</button>
-            </div>
-        </div>
-
-        <div class="admin-container">
-            <div class="admin-stats-grid">
-                <div class="stat-card glass-box">
-                    <h4>إجمالي الطلاب</h4>
-                    <div class="number" id="statStudentsCount">0</div>
-                </div>
-                <div class="stat-card glass-box">
-                    <h4>إجمالي المحاضرات</h4>
-                    <div class="number" id="statLecturesCount">0</div>
-                </div>
-                <div class="stat-card glass-box">
-                    <h4>إجمالي الامتحانات</h4>
-                    <div class="number" id="statExamsCount">0</div>
-                </div>
-                <div class="stat-card glass-box">
-                    <h4>الإيرادات الكلية</h4>
-                    <div class="number" id="statRevenue">0 ج.م</div>
-                </div>
-            </div>
-
-            <!-- إعلانات المنصة -->
-            <div class="admin-card glass-box">
-                <h3>📢 نشر تنبيه / إعلان أعلى المنصة</h3>
-                <input type="text" id="adminNoticeInput" class="admin-input" placeholder="اكتب نص الإعلان الذي سيظهر لجميع الطلاب...">
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button class="btn-card" style="background: #10b981; flex: 1;" onclick="playSound(); publishNotice()">تفعيل الإعلان</button>
-                    <button class="btn-card" style="background: #ef4444; flex: 1;" onclick="playSound(); removeNotice()">إخفاء الإعلان</button>
-                </div>
-            </div>
-
-            <!-- زر فتح وإغلاق خانة توليد أسئلة بالذكاء الاصطناعي -->
-            <div style="margin-bottom: 2rem;">
-                <button class="btn-card" style="background: linear-gradient(135deg, #7c3aed, #db2777); font-size: 1.05rem; padding: 1rem;" onclick="playSound(); toggleAiSection()">
-                    <i class="fa-solid fa-robot"></i> توليد أسئلة الذكاء الاصطناعي الخاصة بالصف المختار بدقة 🪄
-                </button>
-            </div>
-
-            <!-- خانة توليد أسئلة بالذكاء الاصطناعي المخصصة حصرياً للصف المختار -->
-            <div class="admin-card glass-box" id="aiSectionBox" style="border: 2px dashed #7c3aed; display: none;">
-                <h3 style="color: #7c3aed;"><i class="fa-solid fa-robot"></i> توليد أسئلة غير متكررة ومخصصة للصف المختار حصرياً</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">اختر الصف بدقة، وسيتم توليد أسئلة فريدة ومنوعة تماماً لهذا الصف بدون تكرار:</p>
-                
-                <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">اختر المادة الدراسية:</label>
-                <select id="aiSubject" class="admin-select">
-                    <option value="الرياضيات">الرياضيات</option>
-                    <option value="اللغة العربية">اللغة العربية</option>
-                    <option value="العلوم">العلوم</option>
-                    <option value="الدراسات الاجتماعية">الدراسات الاجتماعية</option>
-                    <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
-                </select>
-
-                <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">اختر الصف الدراسي (الترم الأول):</label>
-                <select id="aiGrade" class="admin-select" onchange="updateUnitsDropdown()">
-                    <option value="4prim">الصف الرابع الابتدائي (الترم الأول)</option>
-                    <option value="6prim">الصف السادس الابتدائي (الترم الأول)</option>
-                    <option value="1sec">الصف الأول الثانوي (الترم الأول)</option>
-                    <option value="2sec">الصف الثاني الثانوي (الترم الأول)</option>
-                    <option value="3sec">الصف الثالث الثانوي (الترم الأول)</option>
-                </select>
-
-                <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">اختر الوحدة الدراسية:</label>
-                <select id="aiUnit" class="admin-select" onchange="updateLessonsDropdown()"></select>
-
-                <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">اختر اسم الدرس:</label>
-                <select id="aiLessonName" class="admin-select"></select>
-
-                <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">عدد الأسئلة المطلوبة:</label>
-                <input type="number" id="aiQuestionCount" class="admin-input" value="3" min="1" max="20">
-                
-                <button class="btn-card" style="background: linear-gradient(135deg, #7c3aed, #db2777);" onclick="playSound(); generateAIQuestions()">توليد وإضافة أسئلة هذا الصف فقط 🪄</button>
-            </div>
-
-            <!-- إضافة امتحان جديد -->
-            <div class="admin-card glass-box">
-                <h3>📝 إضافة امتحان جديد</h3>
-                <input type="text" id="examTitle" class="admin-input" placeholder="عنوان الامتحان (مثال: اختبار الوحدة الأولى - رياضيات رابع ابتدائي)">
-                <input type="number" id="examTime" class="admin-input" placeholder="وقت الامتحان بالدقائق (مثال: 15)">
-                
-                <p style="margin-top: 10px; margin-bottom: 15px; font-weight: bold; color: var(--accent-cyan); font-size: 1.05rem;">
-                     عدد الأسئلة الجاهزة في قائمة الامتحان الحالي: <span id="qCountBadge" style="background: #0284c7; color: white; padding: 4px 12px; border-radius: 8px;">0</span>
-                </p>
-
-                <div style="background: rgba(2, 132, 199, 0.05); padding: 1.2rem; border-radius: 16px; margin-bottom: 1rem; border: 1px solid var(--border-color);">
-                    <h4 style="color: var(--accent-cyan); margin-bottom: 0.8rem;">إضافة سؤال يدوي إضافي (اختياري):</h4>
-                    <input type="text" id="examQ" class="admin-input" placeholder="نص السؤال">
-                    <input type="text" id="opt1" class="admin-input" placeholder="الاختيار الأول">
-                    <input type="text" id="opt2" class="admin-input" placeholder="الاختيار الثاني">
-                    <input type="text" id="opt3" class="admin-input" placeholder="الاختيار الثالث">
-                    <input type="text" id="opt4" class="admin-input" placeholder="الاختيار الرابع">
-                    
-                    <label style="font-weight: bold; color: var(--accent-cyan); display: block; margin-bottom: 6px;">حدد الإجابة الصحيحة:</label>
-                    <select id="correctAnsSelect" class="admin-select">
-                        <option value="1">الاختيار الأول</option>
-                        <option value="2">الاختيار الثاني</option>
-                        <option value="3">الاختيار الثالث</option>
-                        <option value="4">الاختيار الرابع</option>
-                    </select>
-
-                    <button class="btn-card" style="background: #0284c7;" onclick="playSound(); addQuestionToCurrentExam()">إضافة السؤال اليدوي للقائمة ➕</button>
-                </div>
-
-                <button class="btn-card" style="background: #10b981; font-size: 1.1rem; padding: 1rem;" onclick="playSound(); publishExam()">نشر الامتحان للطلاب الآن 🚀</button>
-            </div>
-
-            <!-- التحكم بالامتحانات -->
-            <div class="admin-card glass-box">
-                <h3>⚙️ التحكم بالامتحانات (تظهير / إخفاء / حذف)</h3>
-                <div id="adminExamsControlList">
-                    <p style="color: var(--text-muted);">لا توجد امتحانات مضافة بعد.</p>
-                </div>
-            </div>
-
-            <!-- إضافة محاضرة جديدة -->
-            <div class="admin-card glass-box">
-                <h3>📚 إضافة محاضرة جديدة</h3>
-                <input type="text" id="lecTitle" class="admin-input" placeholder="عنوان المحاضرة">
-                <input type="text" id="lecDesc" class="admin-input" placeholder="وصف المحاضرة">
-                <input type="number" id="lecPrice" class="admin-input" placeholder="السعر بالمصري (ج.م)">
-
-                <select id="lecGrade" class="admin-select">
-                    <option value="all">متاحة لجميع الصفوف الدراسية</option>
-                    <option value="4prim">الصف الرابع الابتدائي</option>
-                    <option value="6prim">الصف السادس الابتدائي</option>
-                    <option value="1sec">الصف الأول الثانوي</option>
-                    <option value="2sec">الصف الثاني الثانوي</option>
-                    <option value="3sec">الصف الثالث الثانوي</option>
-                </select>
-
-                <input type="text" id="lecVideo" class="admin-input" placeholder="رابط فيديو يوتيوب">
-                <button class="btn-card" onclick="playSound(); addLecture()">نشر المحاضرة</button>
-            </div>
-
-            <!-- إدارة المحاضرات -->
-            <div class="admin-card glass-box">
-                <h3>🛠️ إدارة المحاضرات (تظهير / إخفاء / حذف)</h3>
-                <div id="adminLecturesControlList">
-                    <p style="color: var(--text-muted);">لا توجد محاضرات مضافة بعد.</p>
-                </div>
-            </div>
-
-            <!-- إدارة الطلاب -->
-            <div class="admin-card glass-box">
-                <h3>👥 إدارة الطلاب المسجلين وشحن الأرصدة</h3>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <select id="targetStudentSelect" class="admin-select" style="flex: 2;">
-                        <option value="">اختر طالباً للشحن المباشر...</option>
-                    </select>
-                    <input type="number" id="chargeAmount" class="admin-input" placeholder="المبلغ (ج.م)" style="flex: 1;">
-                </div>
-                <button class="btn-card" onclick="playSound(); chargeStudentBalanceDirect()">شحن رصيد مباشر 💳</button>
-
-                <h4 style="margin-top: 1.8rem; color: var(--accent-cyan);">قائمة الطلاب المسجلين وتعديل معلوماتهم:</h4>
-                <div style="overflow-x: auto;">
-                    <table class="students-table">
-                        <thead>
-                            <tr>
-                                <th>الكود</th>
-                                <th>الاسم</th>
-                                <th>الصف</th>
-                                <th>الهاتف</th>
-                                <th>ولي الأمر</th>
-                                <th>الرصيد</th>
-                                <th>الحالة</th>
-                                <th>تحكم الأدمن</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminStudentsList">
-                            <tr><td colspan="8" style="text-align:center;">لا يوجد طلاب مسجلين</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- 🛡️ لوحة متابعة أولياء الأمور -->
-            <div class="admin-card glass-box" style="border: 2px solid #0284c7;">
-                <h3 style="color: var(--accent-cyan);"><i class="fa-solid fa-user-shield"></i> لوحة متابعة أولياء الأمور (تقارير الأداء)</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">اختر طالباً للاطلاع على تقرير ولي الأمر ومستوى التقدم والمحاضرات المشاهدة ورقم ولي الأمر:</p>
-                
-                <select id="parentReportSelect" class="admin-select" onchange="loadParentReportForAdmin()">
-                    <option value="">اختر طالباً لعرض تقرير ولي الأمر...</option>
-                </select>
-
-                <div id="parentReportContainer" style="background: rgba(2, 132, 199, 0.05); padding: 1.5rem; border-radius: 16px; margin-top: 1rem; border: 1px solid var(--border-color); display: none;"></div>
-            </div>
-
-            <!-- تصفير البيانات التجريبية -->
-            <div class="admin-card glass-box" style="border-color: rgba(239, 68, 68, 0.4);">
-                <h3 style="color: #ef4444;">⚠️ إعادة ضبط البيانات التجريبية</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">إعادة تعيين المنصة بالكامل للوضع الافتراضي.</p>
-                <button class="btn-card" style="background: #ef4444;" onclick="playSound(); resetDemoData()">إعادة ضبط النظام كاملاً 🔄</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة تعديل بيانات الطالب -->
-    <div class="admin-pass-modal" id="editStudentModal">
-        <div class="admin-pass-box glass-box" style="text-align: right;">
-            <h3 style="color: var(--accent-cyan); margin-bottom: 1rem; text-align: center;">✏️ تعديل بيانات الطالب</h3>
-            <input type="hidden" id="editStudentOriginalCode">
-            
-            <label style="font-size: 0.85rem; font-weight: bold;">اسم الطالب:</label>
-            <input type="text" id="editStudentName" class="admin-input">
-
-            <label style="font-size: 0.85rem; font-weight: bold;">كود الطالب:</label>
-            <input type="text" id="editStudentCode" class="admin-input">
-
-            <label style="font-size: 0.85rem; font-weight: bold;">البريد الإلكتروني:</label>
-            <input type="email" id="editStudentEmail" class="admin-input">
-
-            <label style="font-size: 0.85rem; font-weight: bold;">رقم الهاتف:</label>
-            <input type="tel" id="editStudentPhone" class="admin-input">
-
-            <label style="font-size: 0.85rem; font-weight: bold;">رقم هاتف ولي الأمر:</label>
-            <input type="tel" id="editStudentParentPhone" class="admin-input">
-
-            <label style="font-size: 0.85rem; font-weight: bold;">كلمة المرور:</label>
-            <input type="text" id="editStudentPassword" class="admin-input">
-
-            <button class="btn-card" style="background: #10b981; margin-top: 10px;" onclick="playSound(); saveEditedStudentData()">حفظ التعديلات ✅</button>
-            <button class="btn-card" style="background: #ef4444; margin-top: 6px;" onclick="playSound(); closeEditStudentModal()">إلغاء ✖️</button>
-        </div>
-    </div>
-
-    <!-- نافذة تأكيد تسليم الامتحان -->
-    <div class="admin-pass-modal" id="confirmSubmitModal">
-        <div class="admin-pass-box glass-box">
-            <div style="font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-question"></i></div>
-            <h3 style="color: var(--text-main); margin-bottom: 0.5rem; font-weight: 800;">تسليم الامتحان</h3>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">هل أنت متأكد من إنهاء الامتحان وتسليم إجاباتك الآن؟</p>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-card" style="background: #10b981;" onclick="playSound(); confirmAndSubmitExam()">نعم، تسليم الأن ✅</button>
-                <button class="btn-card" style="background: #ef4444;" onclick="playSound(); closeConfirmSubmitModal()">مراجعة الإجابات ✖️</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة إدخال باسورد الأدمن المشفر 969738 -->
-    <div class="admin-pass-modal" id="adminPassModal">
-        <div class="admin-pass-box glass-box">
-            <h3 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-weight: 800;">دخول لوحة الأدمن الآمنة ⚙️</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;">أدخل كلمة مرور المسؤول (محمية)</p>
-            <input type="password" id="insideAdminPassInput" class="admin-input" placeholder="كلمة المرور">
-            <button class="btn-card" onclick="playSound(); verifyAdminPass()">تحقق ودخول</button>
-            <button class="btn-card" style="background: #ef4444; margin-top: 10px;" onclick="playSound(); closeAdminPassModal()">إلغاء</button>
-        </div>
-    </div>
-
-    <!-- نافذة إعدادات الطالب -->
+    <!-- نافذة إعدادات الحساب مع نظام تغيير كلمة السر -->
     <div class="admin-pass-modal" id="settingsModal">
-        <div class="admin-pass-box glass-box">
-            <h3 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-weight: 800;">⚙️ إعدادات الطالب</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">تحديث رقم الهاتف:</p>
+        <div class="admin-pass-box glass-box" style="text-align: right; max-width: 460px;">
+            <h3 style="color: var(--accent-cyan); margin-bottom: 1rem; text-align: center;">⚙️ إعدادات الحساب الشخصي</h3>
+            
+            <label style="font-size: 0.85rem; font-weight: bold;">رقم الهاتف الحالي:</label>
             <input type="tel" id="newStudentPhoneInput" class="admin-input" placeholder="رقم الهاتف الجديد">
-            <button class="btn-card" style="background: #0284c7;" onclick="playSound(); updateStudentPhone()">تغيير الرقم 🔑</button>
+            <button class="btn-card" style="background: #0284c7; margin-bottom: 15px;" onclick="playSound(); updateStudentPhone()">تحديث رقم الهاتف 🔑</button>
 
-            <button class="btn-card" style="background: #ef4444; margin-top: 12px;" onclick="playSound(); closeSettingsModal()">إغلاق</button>
+            <hr style="border-color: var(--border-color); margin-bottom: 15px;">
+
+            <button class="btn-card" style="background: linear-gradient(135deg, #7c3aed, #6366f1); margin-bottom: 12px;" onclick="playSound(); togglePasswordChangeFields()">
+                <i class="fa-solid fa-lock"></i> تغيير كلمة السر 🔒
+            </button>
+
+            <div id="passwordChangeContainer" style="display: none; background: rgba(2, 132, 199, 0.05); padding: 12px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                <label style="font-size: 0.8rem; font-weight: bold;">كلمة المرور الحالية:</label>
+                <input type="password" id="currentPassInput" class="admin-input" placeholder="أدخل كلمة المرور القديمة">
+
+                <label style="font-size: 0.8rem; font-weight: bold;">كلمة المرور الجديدة:</label>
+                <input type="password" id="newPassInput" class="admin-input" placeholder="أدخل كلمة المرور الجديدة">
+
+                <button class="btn-card" style="background: #10b981; padding: 0.6rem;" onclick="playSound(); saveNewPassword()">حفظ كلمة السر الجديدة ✅</button>
+            </div>
+
+            <button class="btn-card" style="background: #ef4444;" onclick="playSound(); closeSettingsModal()">إغلاق الإعدادات ✖️</button>
         </div>
     </div>
 
@@ -1228,36 +604,16 @@
     <div class="modal-overlay" id="videoModal">
         <div class="modal-box-large glass-box">
             <h3 id="modalTitle" style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 800;">عنوان الدرس</h3>
-            
             <div class="video-responsive" id="youtubePlayerBox">
                 <iframe id="youtubeIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-
             <button class="btn-card" style="background: #ef4444; margin-top: 12px; padding: 0.6rem;" onclick="playSound(); closeVideoModal()">إغلاق الدرس ✖️</button>
         </div>
     </div>
 
     <script>
-        const SECURITY_SECRET_KEY = "EBDA_SECURE_VAULT_2026_XYZ#";
-
-        function encryptData(data) {
-            try { return b58Encode(JSON.stringify(data) + SECURITY_SECRET_KEY); } catch(e) { return btoa(JSON.stringify(data)); }
-        }
-
-        function decryptData(cipher) {
-            try {
-                let decoded = b58Decode(cipher);
-                if (decoded.endsWith(SECURITY_SECRET_KEY)) {
-                    return JSON.parse(decoded.slice(0, -SECURITY_SECRET_KEY.length));
-                }
-                return JSON.parse(atob(cipher));
-            } catch(e) {
-                try { return JSON.parse(atob(cipher)); } catch(err) { return null; }
-            }
-        }
-
-        function b58Encode(str) { return btoa(encodeURIComponent(str)); }
-        function b58Decode(cipher) { return decodeURIComponent(atob(cipher)); }
+        const ADMIN_EMAIL = "admin@ebda.com";
+        const ADMIN_PASSWORD = "969";
 
         let currentStudent = null;
         let isAdmin = false;
@@ -1265,198 +621,54 @@
         let studentsDB = [];
         let lecturesDB = [];
         let examsDB = [];
-        let homeworkDB = [];
+        let rechargeCodesDB = { "BADR-100": 100, "BADR-200": 200, "BADR-500": 500 };
         let totalPlatformRevenue = 0;
         let announcementTextData = "";
 
-        let tempExamQuestions = [];
         let activeExam = null;
         let currentQIndex = 0;
         let studentAnswers = {};
         let examTimerInterval = null;
         let timeRemainingSeconds = 0;
         let currentDisplayMode = 'light';
+        let isAdminPanelOpen = false;
 
         const gradeNames = {
-            '4prim': 'الصف الرابع الابتدائي (الترم الأول)',
-            '6prim': 'الصف السادس الابتدائي (الترم الأول)',
-            '1sec': 'الصف الأول الثانوي (الترم الأول)',
-            '2sec': 'الصف الثاني الثانوي (الترم الأول)',
-            '3sec': 'الصف الثالث الثانوي (الترم الأول)'
+            '4prim': 'الصف الرابع الابتدائي',
+            '6prim': 'الصف السادس الابتدائي',
+            '1sec': 'الصف الأول الثانوي',
+            '2sec': 'الصف الثاني الثانوي',
+            '3sec': 'الصف الثالث الثانوي'
         };
-
-        const egyptianCurriculumTerm1Full = {
-            '4prim': {
-                'الوحدة الأولى: الأعداد الكبيرة والعمليات': [
-                    'الدرس الأول: المركزات العَدَدية والأعداد الكبيرة',
-                    'الدرس الثاني: تقريب الأعداد لأقرب مليون وميار',
-                    'الدرس الثالث: استراتيجيات الجمع والطرح الذهني'
-                ],
-                'الوحدة الثانية: استراتيجيات الحساب والضرب': [
-                    'الدرس الأول: خاصية الدمج والإبدال في الضرب',
-                    'الدرس الثاني: القسمة على عدد مكون من رقمين'
-                ]
-            },
-            '6prim': {
-                'الوحدة الأولى: تحليل العدد والعوامل الأولية': [
-                    'الدرس الأول: تحليل الأعداد الصحيحة إلى عواملها الأولية',
-                    'الدرس الثاني: إيجاد ع.م.أ وم.م.أ للأعداد'
-                ],
-                'الوحدة الثانية: النسبة والمعدل وتطبيقاتها': [
-                    'الدرس الأول: مفهوم النسبة وخواصها',
-                    'الدرس الثاني: حساب المعدل وحل المسائل المرتبطة'
-                ]
-            },
-            '1sec': {
-                'الوحدة الأولى: الجبر وحل المعادلات والدوال': [
-                    'الدرس الأول: إيجاد مجال الدوال الحقيقية',
-                    'الدرس الثاني: اضطراب الدوال (تزايد وتناقص وثبات)'
-                ]
-            },
-            '2sec': {
-                'الوحدة الأولى: التفاضل وحساب النهايات': [
-                    'الدرس الأول: تعيين نهاية الدالة عند نقطة',
-                    'الدرس الثاني: نهاية الدوال عند اللانهاية والاتصال'
-                ]
-            },
-            '3sec': {
-                'الوحدة الأولى: التفاضل والتكامل المتقدم': [
-                    'الدرس الأول: مشتقات الدوال المثلثية والدورية',
-                    'الدرس الثاني: تطبيقات على القيم العظمى والصغرى المحلية'
-                ]
-            }
-        };
-
-        /* بنك أسئلة ذكي ومخصص لكل صف دراسي ومادة لضمان عدم التكرار وتوليد أسئلة فريدة صحيحة */
-        const smartGradeQuestionPool = {
-            '4prim': {
-                'الرياضيات': [
-                    { q: "ما القيمة المكانية للرقم 7 في العدد 7,452,100؟", opts: ["ملايين", "مئات الألوف", "عشرات الآلاف", "آلاف"], ans: "ملايين" },
-                    { q: "العدد الذي يساوي عشر أمثال العدد 45 هو:", opts: ["450", "4500", "4.5", "45"], ans: "450" },
-                    { q: "أي من الأعداد الآتية هو عدد أولى؟", opts: ["7", "9", "15", "21"], ans: "7" }
-                ],
-                'العلوم': [
-                    { q: "أي من العضيات التالية توجد في الخلية النباتية ولا توجد في الحيوانية؟", opts: ["البلاستيدات الخضراء", "الغشاء الخلوي", "الميتوكوندريا", "النواة"], ans: "البلاستيدات الخضراء" },
-                    { q: "وحدة قياس الطول الأساسية في النظام الدولي هي:", opts: ["المتر", "الكيلوجرام", "الثانية", "اللتر"], ans: "المتر" }
-                ],
-                'اللغة العربية': [
-                    { q: "نوع الجمع في كلمة 'المعلمات' هو:", opts: ["جمع مؤنث سالم", "جمع مذكر سالم", "جمع تكسير", "مفرد"], ans: "جمع مؤنث سالم" }
-                ],
-                'الدراسات الاجتماعية': [
-                    { q: "توسط مصر قارات العالم القديم:", opts: ["أفريقيا وآسيا وأوروبا", "أمريكا الشمالية وأمريكا الجنوبية", "أستراليا وأنتاركتيكا", "آسيا وأستراليا"], ans: "أفريقيا وآسيا وأوروبا" }
-                ],
-                'اللغة الإنجليزية': [
-                    { q: "Choose the correct verb: He ___ to school every day.", opts: ["go", "goes", "going", "gone"], ans: "goes" }
-                ]
-            },
-            '6prim': {
-                'الرياضيات': [
-                    { q: "إذا كانت نسبة طول الضلع إلى المحيط كـ 1:4، فما محيط مربع طول ضلعه 5 سم؟", opts: ["20 سم", "16 سم", "25 سم", "10 سم"], ans: "20 سم" },
-                    { q: "المعكوس الجمعي للعدد -7 هو:", opts: ["7", "-7", "0", "1/7"], ans: "7" }
-                ],
-                'العلوم': [
-                    { q: "درجة حرارة الإنسان الطبيعية السليمة تساوي:", opts: ["37 درجة مئوية", "40 درجة مئوية", "35 درجة مئوية", "39 درجة مئوية"], ans: "37 درجة مئوية" }
-                ],
-                'اللغة العربية': [
-                    { q: "إعراب الفاعل في جملة 'شرح المعلم الدرس' هو:", opts: ["فاعل مرفوع وعلامة رفعه الضمة", "مفعول به منصوب", "مبتدأ مرفوع", "مضاف إليه مجرور"], ans: "فاعل مرفوع وعلامة رفعه الضمة" }
-                ],
-                'الدراسات الاجتماعية': [
-                    { q: "أولى الدول العربية إنتاجاً للبترول هي:", opts: ["السعودية", "مصر", "العراق", "الكويت"], ans: "السعودية" }
-                ],
-                'اللغة الإنجليزية': [
-                    { q: "What is the past tense of 'run'?", opts: ["ran", "runned", "running", "runs"], ans: "ran" }
-                ]
-            },
-            '1sec': {
-                'الرياضيات': [
-                    { q: "مجال الدالة د(س) = 1 / (س - 3) هو:", opts: ["ح \ {3}", "ح", "ح الموجبة", "{3}"], ans: "ح \ {3}" }
-                ],
-                'العلوم': [
-                    { q: "القوة الناتجة عن ضرب الكتلة في العجلة هي:", opts: ["القوة (الوزن)", "السرعة", "الشغل", "الطاقة الحركية"], ans: "القوة (الوزن)" }
-                ],
-                'اللغة العربية': [
-                    { q: "الفعل المضارع المعتز الآخر بالواو يُرفع بضمة:", opts: ["مقدرة", "ظاهرة", "ثبوت الننون", "مجزومة"], ans: "مقدرة" }
-                ],
-                'الدراسات الاجتماعية': [
-                    { q: "خط الطول الرئيسي يسمى خط:", opts: ["جرينتش", "الاستواء", "السرطان", "الجدي"], ans: "جرينتش" }
-                ],
-                'اللغة الإنجليزية': [
-                    { q: "Choose the passive form: 'She writes a letter.'", opts: ["A letter is written by her.", "A letter was written by her.", "A letter writes her.", "A letter is writing."], ans: "A letter is written by her." }
-                ]
-            },
-            '2sec': {
-                'الرياضيات': [
-                    { q: "نهاية الدالة (س² - 4) / (س - 2) عندما س تؤول إلى 2 تساوي:", opts: ["4", "2", "0", "غير معينة"], ans: "4" }
-                ],
-                'العلوم': [
-                    { q: "معدل تغير الإزاحة بالنسبة للزمن يمثل:", opts: ["السرعة المتجهة", "العجلة", "المسافة", "القوة"], ans: "السرعة المتجهة" }
-                ],
-                'اللغة العربية': [
-                    { q: "أسلوب المدح يتكون من:", opts: ["نعل المدح + الفاعل + المخصوص بالمدح", "أداة شرط + فعل + جواب", "مبتدأ وخبر فقط", "فعل ماضي مبني للمجهول"], ans: "نعل المدح + الفاعل + المخصوص بالمدح" }
-                ],
-                'الدراسات الاجتماعية': [
-                    { q: "تعتمد الزراعة في الواحات المصرية على مياه:", opts: ["المياه الجوفية (الآبار والعيون)", "الأمطار الشتوية", "نهر النيل مباشرة", "مياه البحر المتوسط"], ans: "المياه الجوفية (الآبار والعيون)" }
-                ],
-                'اللغة الإنجليزية': [
-                    { q: "If I had studied hard, I ___ the exam.", opts: ["would have passed", "will pass", "passed", "pass"], ans: "would have passed" }
-                ]
-            },
-            '3sec': {
-                'الرياضيات': [
-                    { q: "مشتقة الدالة د(س) = جا(س) بالنسبة إلى س هي:", opts: ["جتا(س)", "-جا(س)", "-جتا(س)", "قتا(س)"], ans: "جتا(س)" }
-                ],
-                'العلوم': [
-                    { q: "كمية الحركة تعادل حاصل ضرب:", opts: ["الكتلة × السرعة", "الكتلة × العجلة", "القوة × الزمن", "الشغل ÷ الزمن"], ans: "الكتلة × السرعة" }
-                ],
-                'اللغة العربية': [
-                    { q: "المصدر الصريح لفعل خماسي مثل 'تشارك' هو:", opts: ["تشارُك", "مشاركة", "إحراك", "استنتاج"], ans: "تشارُك" }
-                ],
-                'الدراسات الاجتماعية': [
-                    { q: "المنظمة الدولية التي تهتم بالسلام والأمن الدوليين هي:", opts: ["منظمة الأمم المتحدة", "جامعة الدول العربية", "منظمة التجارة العالمية", "الاتحاد الأوروبي"], ans: "منظمة الأمم المتحدة" }
-                ],
-                'اللغة الإنجليزية': [
-                    { q: "He said that he ___ to Cairo the previous day.", opts: ["had gone", "has gone", "goes", "will go"], ans: "had gone" }
-                ]
-            }
-        };
-
-        function closeAllModals() {
-            document.getElementById('videoModal').style.display = 'none';
-            document.getElementById('settingsModal').style.display = 'none';
-            document.getElementById('adminPassModal').style.display = 'none';
-            document.getElementById('confirmSubmitModal').style.display = 'none';
-            document.getElementById('editStudentModal').style.display = 'none';
-        }
 
         function saveAllDataToStorage() {
             try {
-                localStorage.setItem('ebda_studentsDB', encryptData(studentsDB));
-                localStorage.setItem('ebda_lecturesDB', encryptData(lecturesDB));
-                localStorage.setItem('ebda_examsDB', encryptData(examsDB));
-                localStorage.setItem('ebda_homeworkDB', encryptData(homeworkDB));
-                localStorage.setItem('ebda_totalPlatformRevenue', encryptData(totalPlatformRevenue));
-                localStorage.setItem('ebda_announcementText', encryptData(announcementTextData));
+                localStorage.setItem('badr_studentsDB', JSON.stringify(studentsDB));
+                localStorage.setItem('badr_lecturesDB', JSON.stringify(lecturesDB));
+                localStorage.setItem('badr_examsDB', JSON.stringify(examsDB));
+                localStorage.setItem('badr_codesDB', JSON.stringify(rechargeCodesDB));
+                localStorage.setItem('badr_totalPlatformRevenue', totalPlatformRevenue);
+                localStorage.setItem('badr_announcementText', announcementTextData);
+                localStorage.setItem('badr_isAdminUser', isAdmin);
                 if (currentStudent) {
-                    localStorage.setItem('ebda_currentStudentCode', encryptData(currentStudent.code));
+                    localStorage.setItem('badr_currentStudentCode', currentStudent.code);
                 } else {
-                    localStorage.removeItem('ebda_currentStudentCode');
+                    localStorage.removeItem('badr_currentStudentCode');
                 }
             } catch(e) {}
         }
 
         function loadAllDataFromStorage() {
-            closeAllModals();
             try {
-                const localStudents = localStorage.getItem('ebda_studentsDB');
-                const localLectures = localStorage.getItem('ebda_lecturesDB');
-                const localExams = localStorage.getItem('ebda_examsDB');
-                if (localStudents && localLectures && localExams) {
-                    studentsDB = decryptData(localStudents) || [];
-                    lecturesDB = decryptData(localLectures) || [];
-                    examsDB = decryptData(localExams) || [];
-                    homeworkDB = decryptData(localStorage.getItem('ebda_homeworkDB')) || [];
-                    totalPlatformRevenue = decryptData(localStorage.getItem('ebda_totalPlatformRevenue')) || 0;
-                    announcementTextData = decryptData(localStorage.getItem('ebda_announcementText')) || "";
+                const localStudents = localStorage.getItem('badr_studentsDB');
+                if (localStudents) {
+                    studentsDB = JSON.parse(localStudents) || [];
+                    lecturesDB = JSON.parse(localStorage.getItem('badr_lecturesDB')) || [];
+                    examsDB = JSON.parse(localStorage.getItem('badr_examsDB')) || [];
+                    rechargeCodesDB = JSON.parse(localStorage.getItem('badr_codesDB')) || { "BADR-100": 100 };
+                    totalPlatformRevenue = parseFloat(localStorage.getItem('badr_totalPlatformRevenue')) || 0;
+                    announcementTextData = localStorage.getItem('badr_announcementText') || "";
+                    isAdmin = localStorage.getItem('badr_isAdminUser') === 'true';
 
                     if (announcementTextData) {
                         const bar = document.getElementById('announcementBar');
@@ -1464,12 +676,15 @@
                         bar.style.display = 'block';
                     }
 
-                    const savedCodeCipher = localStorage.getItem('ebda_currentStudentCode');
-                    if (savedCodeCipher) {
-                        let savedCode = decryptData(savedCodeCipher);
-                        let student = studentsDB.find(s => s.code === savedCode);
-                        if (student && !student.isBanned) {
-                            currentStudent = student;
+                    const savedCode = localStorage.getItem('badr_currentStudentCode');
+                    if (savedCode || isAdmin) {
+                        if (isAdmin) {
+                            currentStudent = { name: "المدير العام (الأدمن)", code: "ADMIN", grade: "3sec", balance: 99999 };
+                        } else {
+                            let student = studentsDB.find(s => s.code === savedCode);
+                            if (student) currentStudent = student;
+                        }
+                        if (currentStudent || isAdmin) {
                             updateStudentUI();
                             openPlatform();
                         } else {
@@ -1479,34 +694,18 @@
                         document.getElementById('loginScreen').style.display = 'flex';
                     }
                 } else {
-                    initDemoData();
                     document.getElementById('loginScreen').style.display = 'flex';
                 }
             } catch(e) {
-                initDemoData();
                 document.getElementById('loginScreen').style.display = 'flex';
             }
         }
 
-        function initDemoData() {
-            studentsDB = [{ code: "A101", name: "محمود أحمد", grade: "4prim", password: "123", phone: "01012345678", parentPhone: "01099887766", balance: 100, unlockedLecs: [], passedExams: 0, isBanned: false }];
-            lecturesDB = [{ id: 1, title: "درس تجريبي للمنهج المصري", desc: "شرح مميز", price: 10, grade: "4prim", active: true, thumb: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg", video: "dQw4w9WgXcQ" }];
-            examsDB = [];
-            saveAllDataToStorage();
-        }
-
-        function resetDemoData() {
-            localStorage.clear();
-            initDemoData();
-            currentStudent = null;
-            location.reload();
-        }
-
-        function showToast(message, type = 'success') {
+        function showToast(message) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerHTML = `<span>✨</span> <span>${message}</span>`;
+            toast.innerHTML = `✨ ${message}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
@@ -1526,13 +725,12 @@
         }
 
         function cycleDisplayMode() {
-            const body = document.body;
             if (currentDisplayMode === 'light') {
                 currentDisplayMode = 'dark';
-                body.classList.add('dark-mode');
+                document.body.classList.add('dark-mode');
             } else {
                 currentDisplayMode = 'light';
-                body.classList.remove('dark-mode');
+                document.body.classList.remove('dark-mode');
             }
         }
 
@@ -1546,6 +744,7 @@
 
         function handleGuestLogin() {
             isGuest = true;
+            isAdmin = false;
             currentStudent = null;
             updateStudentUI();
             openPlatform();
@@ -1559,10 +758,12 @@
             const parentPhone = document.getElementById('regParentPhone').value;
             const grade = document.getElementById('regGrade').value;
             const password = document.getElementById('regPassword').value;
+            
             let code = "B" + Math.floor(100 + Math.random() * 900);
-            studentsDB.push({ code, name, email, phone, parentPhone, grade, password, balance: 0, unlockedLecs: [], passedExams: 0, isBanned: false });
+            studentsDB.push({ code, name, email, phone, parentPhone, grade, password, balance: 0, unlockedLecs: [], passedExams: 0 });
             currentStudent = studentsDB[studentsDB.length - 1];
             isGuest = false;
+            isAdmin = false;
             updateStudentUI();
             openPlatform();
             saveAllDataToStorage();
@@ -1571,35 +772,170 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            let code = document.getElementById('loginCode').value.toUpperCase();
+            let loginInput = document.getElementById('loginCode').value.trim();
             let pass = document.getElementById('loginPassword').value;
-            let student = studentsDB.find(s => s.code === code && s.password === pass);
+
+            if ((loginInput.toLowerCase() === ADMIN_EMAIL.toLowerCase() || loginInput.toUpperCase() === "ADMIN") && pass === ADMIN_PASSWORD) {
+                isAdmin = true;
+                isGuest = false;
+                currentStudent = { name: "المدير العام (الأدمن)", code: "ADMIN", grade: "3sec", balance: 99999 };
+                saveAllDataToStorage();
+                openPlatform();
+                return;
+            }
+
+            let student = studentsDB.find(s => (s.code === loginInput.toUpperCase() || s.email.toLowerCase() === loginInput.toLowerCase()) && s.password === pass);
             if (student) {
                 currentStudent = student;
                 isGuest = false;
+                isAdmin = false;
                 updateStudentUI();
                 openPlatform();
             } else {
-                showToast("خطأ في كود الطالب أو كلمة المرور", "error");
+                showToast("خطأ في البيانات أو كلمة المرور");
             }
         }
 
         function openPlatform() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainPlatform').style.display = 'block';
+            document.getElementById('adminNavBtn').style.display = isAdmin ? 'flex' : 'none';
+
             renderLectures();
             renderExams();
             renderHomework();
             updateStudentProgressCircle();
         }
 
+        function toggleAdminPanel() {
+            if (!isAdmin) return;
+            isAdminPanelOpen = !isAdminPanelOpen;
+            if (isAdminPanelOpen) {
+                document.getElementById('studentPlatformContent').style.display = 'none';
+                document.getElementById('platformNavTabs').style.display = 'none';
+                document.getElementById('adminPanelSection').style.display = 'block';
+                document.getElementById('adminBtnText').innerText = "إغلاق الأدمن";
+                updateAdminStudentsTable();
+                renderAdminCodesList();
+                updateAdminStats();
+            } else {
+                document.getElementById('studentPlatformContent').style.display = 'block';
+                document.getElementById('platformNavTabs').style.display = 'flex';
+                document.getElementById('adminPanelSection').style.display = 'none';
+                document.getElementById('adminBtnText').innerText = "لوحة الأدمن";
+                renderLectures();
+                renderExams();
+            }
+        }
+
+        function toggleBalanceInput() {
+            let box = document.getElementById('balanceSectionBox');
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // شحن الرصيد بالكود المكتوب
+        function applyRechargeCode() {
+            if (isGuest) {
+                showToast("عذراً، الحسابات الزائرة لا يمكنها شحن الرصيد");
+                return;
+            }
+            let code = document.getElementById('rechargeCodeInput').value.trim().toUpperCase();
+            if (rechargeCodesDB[code] !== undefined) {
+                let amount = rechargeCodesDB[code];
+                currentStudent.balance += amount;
+                let dbStudent = studentsDB.find(s => s.code === currentStudent.code);
+                if(dbStudent) dbStudent.balance = currentStudent.balance;
+                
+                // إزالة الكود بعد استخدامه لمرة واحدة (اختياري للأمان)
+                delete rechargeCodesDB[code];
+
+                updateStudentUI();
+                saveAllDataToStorage();
+                showToast(`✨ تم شحن رصيدك بنجاح بقيمة (${amount} ج.م)!`);
+                document.getElementById('rechargeCodeInput').value = "";
+                document.getElementById('balanceSectionBox').style.display = 'none';
+            } else {
+                showToast("كود الشحن غير صحيح أو تم استخدامه مسبقاً");
+            }
+        }
+
+        // إنشاء كود شحن تجريبي للطالب مباشرة
+        function generateDemoStudentCode() {
+            if (isGuest) {
+                showToast("الحساب الزائر غير مدعوم");
+                return;
+            }
+            let randomCode = "STUDENT-" + Math.floor(1000 + Math.random() * 9000);
+            rechargeCodesDB[randomCode] = 150; // كود بقيمة 150 جنيه
+            document.getElementById('rechargeCodeInput').value = randomCode;
+            saveAllDataToStorage();
+            showToast("✨ تم توليد كود تجريبي بقيمة 150 ج.م، اضغط تفعيل الكود!");
+        }
+
+        // إضافة الأدمن لكود شحن جديد
+        function adminCreateRechargeCode() {
+            let code = document.getElementById('adminCustomCode').value.trim().toUpperCase();
+            let value = parseFloat(document.getElementById('adminCodeValue').value);
+            if (code && !isNaN(value)) {
+                rechargeCodesDB[code] = value;
+                saveAllDataToStorage();
+                renderAdminCodesList();
+                document.getElementById('adminCustomCode').value = "";
+                showToast("تم إضافة كود الشحن بنجاح");
+            } else {
+                showToast("أدخل الكود والقيمة بشكل صحيح");
+            }
+        }
+
+        function renderAdminCodesList() {
+            let container = document.getElementById('adminCodesList');
+            if(!container) return;
+            container.innerHTML = Object.keys(rechargeCodesDB).length === 0 ? '<p>لا توجد أكواد</p>' : '';
+            for (let [code, val] of Object.entries(rechargeCodesDB)) {
+                container.innerHTML += `<div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border-color);"><span><b>${code}</b> (قيمة: ${val} ج.م)</span> <button onclick="deleteCode('${code}')" style="background:#ef4444; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">حذف</button></div>`;
+            }
+        }
+
+        function deleteCode(code) {
+            delete rechargeCodesDB[code];
+            saveAllDataToStorage();
+            renderAdminCodesList();
+        }
+
+        function togglePasswordChangeFields() {
+            let container = document.getElementById('passwordChangeContainer');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function saveNewPassword() {
+            if (isGuest || isAdmin) {
+                showToast("هذا الحساب لا يدعم تغيير كلمة المرور");
+                return;
+            }
+            let currentP = document.getElementById('currentPassInput').value;
+            let newP = document.getElementById('newPassInput').value;
+
+            if (currentP === currentStudent.password && newP) {
+                currentStudent.password = newP;
+                let dbStudent = studentsDB.find(s => s.code === currentStudent.code);
+                if(dbStudent) dbStudent.password = newP;
+                saveAllDataToStorage();
+                showToast("✅ تم تغيير كلمة المرور بنجاح");
+                document.getElementById('currentPassInput').value = "";
+                document.getElementById('newPassInput').value = "";
+                document.getElementById('passwordChangeContainer').style.display = 'none';
+            } else {
+                showToast("كلمة المرور الحالية غير صحيحة أو الحقول فارغة");
+            }
+        }
+
         function updateStudentProgressCircle() {
-            if (!currentStudent) return;
+            if (!currentStudent || isAdmin) return;
             let watched = currentStudent.unlockedLecs ? currentStudent.unlockedLecs.length : 0;
             let passed = currentStudent.passedExams || 0;
             document.getElementById('watchedLecsCount').innerText = watched;
             document.getElementById('passedExamsCount').innerText = passed;
-            let percent = Math.min(Math.round(((watched + passed) / (Math.max(lecturesDB.length, 1) * 2)) * 100), 100);
+            let percent = Math.min(Math.round(((watched + passed) / 10) * 100), 100);
             document.getElementById('progressPercentText').innerText = percent + "%";
             let deg = (percent / 100) * 360;
             document.getElementById('circularProgress').style.background = `conic-gradient(#0284c7 ${deg}deg, rgba(200,200,200,0.2) ${deg}deg)`;
@@ -1610,7 +946,7 @@
                 document.getElementById('myName').innerText = currentStudent.name;
                 document.getElementById('myCode').innerText = currentStudent.code;
                 document.getElementById('myBalance').innerText = currentStudent.balance;
-                document.getElementById('myGradeBadge').innerText = gradeNames[currentStudent.grade] || 'غير محدد';
+                document.getElementById('myGradeBadge').innerText = gradeNames[currentStudent.grade] || 'مسؤول النظام';
             }
         }
 
@@ -1623,198 +959,15 @@
             document.getElementById('sectionHomework').style.display = sec === 'homework' ? 'block' : 'none';
         }
 
-        function openAdminPassModal() { document.getElementById('adminPassModal').style.display = 'flex'; }
-        function closeAdminPassModal() { document.getElementById('adminPassModal').style.display = 'none'; }
-        function verifyAdminPass() {
-            if (document.getElementById('insideAdminPassInput').value === "969738") {
-                isAdmin = true;
-                closeAdminPassModal();
-                document.getElementById('mainPlatform').style.display = 'none';
-                document.getElementById('adminPage').style.display = 'block';
-                updateAdminStudentsTable();
-                renderAdminExamsControl();
-                renderAdminLecturesControl();
-                updateAdminStats();
-                updateUnitsDropdown();
-                updateParentReportDropdown();
-            } else {
-                showToast("باسورد الأدمن غير صحيح", "error");
-            }
-        }
-
-        function saveAndExitAdmin() {
-            saveAllDataToStorage();
-            document.getElementById('adminPage').style.display = 'none';
-            document.getElementById('mainPlatform').style.display = 'block';
-            renderLectures();
-            renderExams();
-        }
-
-        function updateUnitsDropdown() {
-            const grade = document.getElementById('aiGrade').value;
-            const unitSelect = document.getElementById('aiUnit');
-            unitSelect.innerHTML = "";
-            let units = Object.keys(egyptianCurriculumTerm1Full[grade] || {});
-            units.forEach(u => unitSelect.innerHTML += `<option value="${u}">${u}</option>`);
-            updateLessonsDropdown();
-        }
-
-        function updateLessonsDropdown() {
-            const grade = document.getElementById('aiGrade').value;
-            const unit = document.getElementById('aiUnit').value;
-            const lessonSelect = document.getElementById('aiLessonName');
-            lessonSelect.innerHTML = "";
-            let lessons = (egyptianCurriculumTerm1Full[grade] && egyptianCurriculumTerm1Full[grade][unit]) ? egyptianCurriculumTerm1Full[grade][unit] : ['درس عام ومراجعة'];
-            lessons.forEach(l => lessonSelect.innerHTML += `<option value="${l}">${l}</option>`);
-        }
-
-        /* توليد ذكي مخصص حصرياً للصف والمادة المختارين بدون أي تكرار وبدون خلط صفوف */
-        function generateAIQuestions() {
-            const subject = document.getElementById('aiSubject').value;
-            const grade = document.getElementById('aiGrade').value;
-            const unit = document.getElementById('aiUnit').value;
-            const lessonName = document.getElementById('aiLessonName').value;
-            const count = parseInt(document.getElementById('aiQuestionCount').value) || 3;
-
-            // جلب الأسئلة الخاصة بهذا الصف وهذه المادة تحديداً
-            let gradePool = smartGradeQuestionPool[grade] || {};
-            let subjectPool = gradePool[subject] || [
-                { q: `سؤال تقييمي عام في مادة ${subject} لـ ${gradeNames[grade]}`, opts: ["الخيار الصحيح الأول", "خيار خطأ 1", "خيار خطأ 2", "خيار خطأ 3"], ans: "الخيار الصحيح الأول" }
-            ];
-
-            for (let i = 0; i < count; i++) {
-                let baseQ = subjectPool[i % subjectPool.length];
-                
-                // إعداد 3 خيارات خطأ وخيار صحيح واحد مرتبين بعشوائية ذكية وعدم تكرار
-                let correctOpt = baseQ.ans;
-                let wrongOpts = baseQ.opts.filter(o => o !== correctOpt);
-                while(wrongOpts.length < 3) {
-                    wrongOpts.push(`تشتيت إضافي رقم ${Math.floor(Math.random()*100)}`);
-                }
-                
-                let finalOpts = [correctOpt, wrongOpts[0], wrongOpts[1], wrongOpts[2]];
-                // خلط الخيارات عشوائياً
-                finalOpts.sort(() => Math.random() - 0.5);
-
-                tempExamQuestions.push({
-                    q: `(${subject} - ${gradeNames[grade]}) ${unit} - ${lessonName}\n• ${baseQ.q} (رقم ${i+1})`,
-                    opts: finalOpts,
-                    ans: correctOpt
-                });
-            }
-
-            document.getElementById('qCountBadge').innerText = tempExamQuestions.length;
-            showToast(`✨ تم توليد (${count}) أسئلة ذكية خاصة بـ (${gradeNames[grade]}) في مادة (${subject}) بدون تكرار!`);
-        }
-
-        function addQuestionToCurrentExam() {
-            const q = document.getElementById('examQ').value;
-            const o1 = document.getElementById('opt1').value;
-            const o2 = document.getElementById('opt2').value;
-            const o3 = document.getElementById('opt3').value;
-            const o4 = document.getElementById('opt4').value;
-            let ans = [o1, o2, o3, o4][parseInt(document.getElementById('correctAnsSelect').value) - 1];
-            if (q && o1 && o2 && o3 && o4) {
-                tempExamQuestions.push({ q, opts: [o1, o2, o3, o4], ans });
-                document.getElementById('examQ').value = "";
-                document.getElementById('opt1').value = "";
-                document.getElementById('opt2').value = "";
-                document.getElementById('opt3').value = "";
-                document.getElementById('opt4').value = "";
-                document.getElementById('qCountBadge').innerText = tempExamQuestions.length;
-                showToast("تم إضافة السؤال اليدوي بنجاح");
-            } else {
-                showToast("أكمل كافة حقول السؤال", "error");
-            }
-        }
-
-        function publishExam() {
-            const title = document.getElementById('examTitle').value;
-            const timeMin = parseInt(document.getElementById('examTime').value) || 10;
-            if (title && tempExamQuestions.length > 0) {
-                examsDB.push({ id: Date.now(), title, timeMin, questions: [...tempExamQuestions], active: true });
-                tempExamQuestions = [];
-                document.getElementById('examTitle').value = "";
-                document.getElementById('examTime').value = "";
-                document.getElementById('qCountBadge').innerText = "0";
-                saveAllDataToStorage();
-                renderAdminExamsControl();
-                renderExams();
-                showToast("تم نشر الامتحان للطلاب بنجاح 🚀");
-            } else {
-                showToast("أدخل عنوان الامتحان وأضف سؤالاً واحداً على الأقل", "error");
-            }
-        }
-
-        function renderAdminExamsControl() {
-            const container = document.getElementById('adminExamsControlList');
-            container.innerHTML = examsDB.length === 0 ? '<p>لا توجد امتحانات</p>' : '';
-            examsDB.forEach(e => {
-                let btnText = e.active ? 'إخفاء' : 'تظهير';
-                container.innerHTML += `<div style="padding:10px; border:1px solid var(--border-color); margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;"><b>${e.title}</b> (أسئلة: ${e.questions.length}) <div><button onclick="toggleExamStatus(${e.id})">${btnText}</button> <button onclick="deleteExam(${e.id})">حذف</button></div></div>`;
-            });
-        }
-
-        function toggleExamStatus(id) {
-            let e = examsDB.find(ex => ex.id === id);
-            if(e) { e.active = !e.active; renderAdminExamsControl(); renderExams(); saveAllDataToStorage(); }
-        }
-
-        function deleteExam(id) {
-            examsDB = examsDB.filter(e => e.id !== id);
-            renderAdminExamsControl();
-            renderExams();
-            updateAdminStats();
-            saveAllDataToStorage();
-        }
-
-        function addLecture() {
-            const title = document.getElementById('lecTitle').value;
-            const desc = document.getElementById('lecDesc').value;
-            const price = parseFloat(document.getElementById('lecPrice').value) || 0;
-            const grade = document.getElementById('lecGrade').value;
-            const videoInput = document.getElementById('lecVideo').value;
-            if (title && videoInput) {
-                let videoId = videoInput.includes('v=') ? videoInput.split('v=')[1].split('&')[0] : videoInput;
-                lecturesDB.push({ id: Date.now(), title, desc, price, grade, active: true, thumb: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`, video: videoId });
-                document.getElementById('lecTitle').value = "";
-                document.getElementById('lecDesc').value = "";
-                document.getElementById('lecPrice').value = "";
-                document.getElementById('lecVideo').value = "";
-                renderAdminLecturesControl();
-                renderLectures();
-                updateAdminStats();
-                saveAllDataToStorage();
-                showToast("تم نشر المحاضرة بنجاح");
-            } else {
-                showToast("أدخل عنوان المحاضرة ورابط يوتيوب", "error");
-            }
-        }
-
-        function renderAdminLecturesControl() {
-            const container = document.getElementById('adminLecturesControlList');
-            container.innerHTML = lecturesDB.length === 0 ? '<p>لا توجد محاضرات</p>' : '';
-            lecturesDB.forEach(l => {
-                container.innerHTML += `<div style="padding:10px; border:1px solid var(--border-color); margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;"><b>${l.title}</b> <button onclick="deleteLecture(${l.id})">حذف</button></div>`;
-            });
-        }
-
-        function deleteLecture(id) {
-            lecturesDB = lecturesDB.filter(l => l.id !== id);
-            renderAdminLecturesControl();
-            renderLectures();
-            updateAdminStats();
-            saveAllDataToStorage();
-        }
-
         function updateAdminStudentsTable() {
             const tbody = document.getElementById('adminStudentsList');
             const select = document.getElementById('targetStudentSelect');
+            if(!tbody || !select) return;
             select.innerHTML = '<option value="">اختر طالباً للشحن...</option>';
-            tbody.innerHTML = studentsDB.length === 0 ? '<tr><td colspan="8">لا يوجد طلاب</td></tr>' : '';
+            tbody.innerHTML = studentsDB.length === 0 ? '<tr><td colspan="6">لا يوجد طلاب</td></tr>' : '';
             studentsDB.forEach(s => {
                 select.innerHTML += `<option value="${s.code}">${s.name}</option>`;
-                tbody.innerHTML += `<tr><td>${s.code}</td><td>${s.name}</td><td>${gradeNames[s.grade] || '-'}</td><td>${s.phone || '-'}</td><td>${s.parentPhone || '-'}</td><td>${s.balance} ج.م</td><td>نشط</td><td><button onclick="deleteStudent('${s.code}')">حذف</button></td></tr>`;
+                tbody.innerHTML += `<tr><td>${s.code}</td><td>${s.name}</td><td>${gradeNames[s.grade] || '-'}</td><td>${s.phone || '-'}</td><td>${s.balance} ج.م</td><td><button onclick="deleteStudent('${s.code}')" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer;">حذف</button></td></tr>`;
             });
         }
 
@@ -1837,28 +990,12 @@
                 saveAllDataToStorage();
                 showToast("تم شحن الرصيد بنجاح");
             } else {
-                showToast("اختر طالباً والمبلغ صحيحاً", "error");
-            }
-        }
-
-        function updateParentReportDropdown() {
-            const select = document.getElementById('parentReportSelect');
-            select.innerHTML = '<option value="">اختر طالباً لتقرير ولي الأمر...</option>';
-            studentsDB.forEach(s => select.innerHTML += `<option value="${s.code}">${s.name}</option>`);
-        }
-
-        function loadParentReportForAdmin() {
-            const code = document.getElementById('parentReportSelect').value;
-            const box = document.getElementById('parentReportContainer');
-            if(!code) { box.style.display = 'none'; return; }
-            let s = studentsDB.find(st => st.code === code);
-            if(s) {
-                box.style.display = 'block';
-                box.innerHTML = `<h4>تقرير ولي الأمر: ${s.name}</h4><p>هاتف ولي الأمر: ${s.parentPhone}</p><p>الامتحانات المُجتازة: ${s.passedExams || 0}</p><p>الرصيد: ${s.balance} ج.م</p>`;
+                showToast("اختر طالباً والمبلغ صحيحاً");
             }
         }
 
         function updateAdminStats() {
+            if(!document.getElementById('statStudentsCount')) return;
             document.getElementById('statStudentsCount').innerText = studentsDB.length;
             document.getElementById('statLecturesCount').innerText = lecturesDB.length;
             document.getElementById('statExamsCount').innerText = examsDB.length;
@@ -1867,20 +1004,24 @@
 
         function publishNotice() {
             announcementTextData = document.getElementById('adminNoticeInput').value;
-            document.getElementById('announcementBar').innerText = "📢 " + announcementTextData;
-            document.getElementById('announcementBar').style.display = 'block';
+            const bar = document.getElementById('announcementBar');
+            bar.innerText = "📢 " + announcementTextData;
+            bar.style.display = 'block';
             saveAllDataToStorage();
-            showToast("تم نشر الإعلان");
+            showToast("تم بث الإعلان للجميع");
         }
-        function removeNotice() { document.getElementById('announcementBar').style.display = 'none'; saveAllDataToStorage(); }
-        function toggleAiSection() {
-            let box = document.getElementById('aiSectionBox');
-            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+
+        function removeNotice() {
+            document.getElementById('announcementBar').style.display = 'none';
+            announcementTextData = "";
+            saveAllDataToStorage();
         }
 
         function renderLectures() {
             const container = document.getElementById('lecturesContainer');
+            if(!container) return;
             let list = lecturesDB.filter(l => isAdmin || l.active);
+            if (currentStudent && !isAdmin) list = list.filter(l => l.grade === 'all' || l.grade === currentStudent.grade);
             container.innerHTML = list.length === 0 ? '<p style="text-align:center; color:var(--text-muted);">لا توجد محاضرات متاحة</p>' : '';
             list.forEach(l => {
                 let unlocked = isAdmin || (currentStudent && currentStudent.unlockedLecs.includes(l.id));
@@ -1900,7 +1041,7 @@
                 saveAllDataToStorage();
                 showToast("تم شراء المحاضرة بنجاح");
             } else {
-                showToast("رصيدك غير كافٍ", "error");
+                showToast("رصيدك غير كافٍ");
             }
         }
 
@@ -1920,8 +1061,10 @@
 
         function renderExams() {
             const container = document.getElementById('examsContainer');
+            if(!container) return;
             let list = examsDB.filter(e => isAdmin || e.active);
-            container.innerHTML = list.length === 0 ? '<p style="text-align:center; color:var(--text-muted);">لا توجد امتحانات متاحة</p>' : '';
+            if (currentStudent && !isAdmin) list = list.filter(e => !e.grade || e.grade === currentStudent.grade);
+            container.innerHTML = list.length === 0 ? '<p style="text-align:center; color:var(--text-muted);">لا توجد امتحانات متاحة حالياً</p>' : '';
             list.forEach(e => {
                 let btn = isGuest ? `<button class="btn-card" style="background:#64748b;" disabled>غير متاح للزائر</button>` : `<button class="btn-card" onclick="startExam(${e.id})">بدء الاختبار</button>`;
                 container.innerHTML += `<div class="card-item glass-box"><h3>📝 ${e.title}</h3><p>عدد الأسئلة: ${e.questions.length}</p><p>الوقت: ${e.timeMin} دقائق</p>${btn}</div>`;
@@ -1983,7 +1126,7 @@
                 currentQIndex++;
                 loadQuestionIntoSession();
             } else {
-                document.getElementById('confirmSubmitModal').style.display = 'flex';
+                confirmAndSubmitExam();
             }
         }
 
@@ -1994,13 +1137,11 @@
             }
         }
 
-        function closeConfirmSubmitModal() { document.getElementById('confirmSubmitModal').style.display = 'none'; }
         function confirmAndSubmitExam() {
-            closeConfirmSubmitModal();
             clearInterval(examTimerInterval);
             let score = 0;
             activeExam.questions.forEach((q, i) => { if (studentAnswers[i] === q.ans) score++; });
-            if(currentStudent) {
+            if(currentStudent && !isAdmin) {
                 currentStudent.passedExams = (currentStudent.passedExams || 0) + 1;
                 updateStudentProgressCircle();
                 saveAllDataToStorage();
@@ -2012,14 +1153,14 @@
 
         function openSettingsModal() { document.getElementById('settingsModal').style.display = 'flex'; }
         function closeSettingsModal() { document.getElementById('settingsModal').style.display = 'none'; }
+        
         function updateStudentPhone() {
             let p = document.getElementById('newStudentPhoneInput').value;
-            if(p) { currentStudent.phone = p; closeSettingsModal(); saveAllDataToStorage(); showToast("تم تحديث الهاتف"); }
+            if(p && currentStudent) { currentStudent.phone = p; saveAllDataToStorage(); showToast("تم تحديث الهاتف بنجاح"); }
         }
 
         window.onload = function() {
             loadAllDataFromStorage();
-            updateUnitsDropdown();
         };
     </script>
 </body>
